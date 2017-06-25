@@ -1,0 +1,78 @@
+html {
+	background-image: -webkit-linear-gradient(bottom, #F4E2C9 20%, #F4D7C9 100%);
+	background-image: -ms-linear-gradient(bottom, #F4E2C9 20%, #F4D7C9 100%);
+	background-image: linear-gradient(to bottom, #F4E2C9 20%, #F4D7C9 100%);
+}
+
+.sortable-ghost {
+	opacity: .2;
+}
+
+#editable {}
+	#editable li {
+		position: relative;
+	}
+
+	#editable i {
+		-webkit-transition: opacity .2s;
+		transition: opacity .2s;
+		opacity: 0;
+		display: block;
+		cursor: pointer;
+		color: #c00;
+		top: 10px;
+		right: 40px;
+		position: absolute;
+		font-style: normal;
+	}
+
+	#editable li:hover i {
+		opacity: 1;
+	}
+
+
+#filter {}
+	#filter button {
+		color: #fff;
+		width: 100%;
+		border: none;
+		outline: 0;
+		opacity: .5;
+		margin: 10px 0 0;
+		transition: opacity .1s ease;
+		cursor: pointer;
+		background: #5F9EDF;
+		padding: 10px 0;
+		font-size: 20px;
+	}
+		#filter button:hover {
+			opacity: 1;
+		}
+
+	#filter .block__list {
+		padding-bottom: 0;
+	}
+.my-drag-handle{
+	cursor: move;
+}
+.drag-handle {
+	margin-right: 10px;
+	font: bold 20px Sans-Serif;
+	color: #5F9EDF;
+	display: inline-block;
+	cursor: move;
+	cursor: -webkit-grabbing;  /* overrides 'move' */
+}
+
+#todos input {
+	padding: 5px;
+	font-size: 14px;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+}
+
+
+
+#nested ul li {
+	background-color: rgba(0,0,0,.05);
+}
