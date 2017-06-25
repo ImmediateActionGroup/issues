@@ -1,0 +1,25 @@
+#issues_todo,#issues_inprogress,#issues_done{
+    min-height:200px;
+    & table{
+        width: 100%;
+        & tr td{
+            vertical-align: top;
+            padding: 2px;
+            text-align: left;
+        }
+        & tr:nth-of-type(2) td:last-of-type{
+            text-align: left;
+            width: auto;
+        }
+        & tr td:first-of-type{
+            width: 30px;
+        }
+        & tr td:last-of-type{
+            width: 30px;
+            text-align: right;
+        }
+        & tr:last-of-type td:last-of-type{
+            text-align: center;
+        }
+    }
+}

@@ -58,6 +58,7 @@
           rel="stylesheet" type="text/css"/>
     <link href="../static/assets/sortable/sortable.css" th:href="@{/assets/sortable/sortable.css}" rel="stylesheet"
           type="text/css"/>
+          <link rel="stylesheet" href="../static/myassets/css/issues.css" />
 
     <!-- END THEME LAYOUT STYLES -->
     <link rel="shortcut icon" href="favicon.ico"/>
@@ -877,7 +878,7 @@
                 </div>
 
                 <div class="row" style="margin:0px;">
-                    <div class="col-lg-4">
+                    <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="portlet light" style="margin-bottom: 5px; padding: 0px;">
                             <div class="portlet-title">
                                 <div class="caption">
@@ -888,574 +889,335 @@
                             </div>
                             <div class="portlet-body">
                                 <ul id="issues_todo" class="list-group">
-                                    <li class="list-group-item my-drag-handle"
-                                        style="min-height: 75px; padding:10px 10px;">
-                                        <div class="row">
-                                            <div class="col-lg-10 col-md-9 col-sm-9">
-                                                <div class="row">
-                                                    <div class="col-lg-2 col-md-2 col-sm-2">
-                                                        <i class="fa fa-bell"></i>
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10"
-                                                         style="padding-left: 0px;">
-
-                                                        <a data-toggle="modal" href="#todo-task-modal">IAG-456</a>
-                                                    </div>
-
-                                                </div>
-                                                <div class="row" style="margin-bottom: 10px;">
-                                                    <div class="col-lg-2 col-md-2 col-sm-2">
-                                                        <i class="fa fa-long-arrow-up red"></i>
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10"
-                                                         style="padding-left: 0px;">
-                                                        完成这个的反正就要完成这个
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-2 col-md-2 col-sm-2">
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10"
-                                                         style="padding-left: 0px;">
-                                                        <span class="badge badge-primary">IAG-FUNCTION</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-2 col-md-3 col-sm-3">
-                                                <div class="row">
-                                                    <div class="col-lg-12">
-                                                        <img src="../static/assets/img/avatars/avatar9.jpg"
-                                                             class="img-circle" style="width:35px; height: 35px;"/>
-
-                                                        <span class="badge badge-default">
-                                                            &nbsp;2
-                                                        &nbsp;
-                                                        </span>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
+                                    <li class="list-group-item my-drag-handle">
+                                    	<table>
+                                    		<tr>
+                                    			<td><i class="fa fa-bell"></i></td>
+                                    			<td><a data-toggle="modal" href="#todo-task-modal">IAG-456</a></td>
+                                    			<td rowspan="2">
+                                    				<img src="../static/assets/img/avatars/avatar9.jpg" class="img-circle" />
+                                    			</td>
+                                    		</tr>
+                                    		<tr>
+                                    			<td><i class="fa fa-long-arrow-up red"></i></td>
+                                    			<td>完成这个的反正就要完成这个完成这个的反正就要完成这个完成这个的反正就要完成这个完成这个的反正就要完成这个完成这个的反正就要完成这个</td>
+                                    		</tr>
+                                    		<tr>
+                                    			<td>&nbsp;</td>
+                                    			<td><span class="badge badge-warning">IAG-FUNCTION</span></td>
+                                    			<td><span class="badge badge-default" title="工时">2</span></td>
+                                    		</tr>
+                                    	</table>
                                     </li>
-                                    <li class="list-group-item my-drag-handle"
-                                        style="min-height: 75px; padding:10px 10px;">
-                                        <div class="row">
-                                            <div class="col-lg-10 col-md-9 col-sm-9">
-                                                <div class="row">
-                                                    <div class="col-lg-2 col-md-2 col-sm-2">
-                                                        <i class="fa fa-bell"></i>
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10"
-                                                         style="padding-left: 0px;">
-
-                                                        <a data-toggle="modal" href="#todo-task-modal">IAG-456</a>
-                                                    </div>
-
-                                                </div>
-                                                <div class="row" style="margin-bottom: 10px;">
-                                                    <div class="col-lg-2 col-md-2 col-sm-2">
-                                                        <i class="fa fa-long-arrow-up red"></i>
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10"
-                                                         style="padding-left: 0px;">
-                                                        完成这个的反正就要完成这个
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-2 col-md-2 col-sm-2">
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10"
-                                                         style="padding-left: 0px;">
-                                                        <span class="badge badge-primary">IAG-FUNCTION</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-2 col-md-3 col-sm-3">
-                                                <div class="row">
-                                                    <div class="col-lg-12">
-                                                        <img src="../static/assets/img/avatars/avatar9.jpg"
-                                                             class="img-circle" style="width:35px; height: 35px;"/>
-
-                                                        <span class="badge badge-default">
-                                                            &nbsp;2
-                                                        &nbsp;
-                                                        </span>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
+                                    <li class="list-group-item my-drag-handle">
+                                    	<table>
+                                    		<tr>
+                                    			<td><i class="fa fa-bell"></i></td>
+                                    			<td><a data-toggle="modal" href="#todo-task-modal">IAG-456</a></td>
+                                    			<td rowspan="2">
+                                    				<img src="../static/assets/img/avatars/avatar9.jpg" class="img-circle" />
+                                    			</td>
+                                    		</tr>
+                                    		<tr>
+                                    			<td><i class="fa fa-long-arrow-up red"></i></td>
+                                    			<td>完成这个的反正就要完成这个</td>
+                                    		</tr>
+                                    		<tr>
+                                    			<td>&nbsp;</td>
+                                    			<td><span class="badge badge-warning">IAG-FUNCTION</span></td>
+                                    			<td><span class="badge badge-default" title="工时">2</span></td>
+                                    		</tr>
+                                    	</table>
                                     </li>
-                                    <li class="list-group-item my-drag-handle"
-                                        style="min-height: 75px; padding:10px 10px;">
-                                        <div class="row">
-                                            <div class="col-lg-10 col-md-9 col-sm-9">
-                                                <div class="row">
-                                                    <div class="col-lg-2 col-md-2 col-sm-2">
-                                                        <i class="fa fa-bell"></i>
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10"
-                                                         style="padding-left: 0px;">
-
-                                                        <a data-toggle="modal" href="#todo-task-modal">IAG-456</a>
-                                                    </div>
-
-                                                </div>
-                                                <div class="row" style="margin-bottom: 10px;">
-                                                    <div class="col-lg-2 col-md-2 col-sm-2">
-                                                        <i class="fa fa-long-arrow-up red"></i>
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10"
-                                                         style="padding-left: 0px;">
-                                                        完成这个的反正就要完成这个
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-2 col-md-2 col-sm-2">
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10"
-                                                         style="padding-left: 0px;">
-                                                        <span class="badge badge-primary">IAG-FUNCTION</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-2 col-md-3 col-sm-3">
-                                                <div class="row">
-                                                    <div class="col-lg-12">
-                                                        <img src="../static/assets/img/avatars/avatar9.jpg"
-                                                             class="img-circle" style="width:35px; height: 35px;"/>
-
-                                                        <span class="badge badge-default">
-                                                            &nbsp;2
-                                                        &nbsp;
-                                                        </span>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
+                                    <li class="list-group-item my-drag-handle">
+                                    	<table>
+                                    		<tr>
+                                    			<td><i class="fa fa-bell"></i></td>
+                                    			<td><a data-toggle="modal" href="#todo-task-modal">IAG-456</a></td>
+                                    			<td rowspan="2">
+                                    				<img src="../static/assets/img/avatars/avatar9.jpg" class="img-circle" />
+                                    			</td>
+                                    		</tr>
+                                    		<tr>
+                                    			<td><i class="fa fa-long-arrow-up red"></i></td>
+                                    			<td>完成这个的反正就要完成这个</td>
+                                    		</tr>
+                                    		<tr>
+                                    			<td>&nbsp;</td>
+                                    			<td><span class="badge badge-warning">IAG-FUNCTION</span></td>
+                                    			<td><span class="badge badge-default" title="工时">2</span></td>
+                                    		</tr>
+                                    	</table>
                                     </li>
-                                    <li class="list-group-item my-drag-handle"
-                                        style="min-height: 75px; padding:10px 10px;">
-                                        <div class="row">
-                                            <div class="col-lg-10 col-md-9 col-sm-9">
-                                                <div class="row">
-                                                    <div class="col-lg-2 col-md-2 col-sm-2">
-                                                        <i class="fa fa-bell"></i>
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10"
-                                                         style="padding-left: 0px;">
-
-                                                        <a data-toggle="modal" href="#todo-task-modal">IAG-456</a>
-                                                    </div>
-
-                                                </div>
-                                                <div class="row" style="margin-bottom: 10px;">
-                                                    <div class="col-lg-2 col-md-2 col-sm-2">
-                                                        <i class="fa fa-long-arrow-up red"></i>
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10"
-                                                         style="padding-left: 0px;">
-                                                        完成这个的反正就要完成这个
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-2 col-md-2 col-sm-2">
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10"
-                                                         style="padding-left: 0px;">
-                                                        <span class="badge badge-primary">IAG-FUNCTION</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-2 col-md-3 col-sm-3">
-                                                <div class="row">
-                                                    <div class="col-lg-12">
-                                                        <img src="../static/assets/img/avatars/avatar9.jpg"
-                                                             class="img-circle" style="width:35px; height: 35px;"/>
-
-                                                        <span class="badge badge-default">
-                                                            &nbsp;2
-                                                        &nbsp;
-                                                        </span>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
+                                    <li class="list-group-item my-drag-handle">
+                                    	<table>
+                                    		<tr>
+                                    			<td><i class="fa fa-bell"></i></td>
+                                    			<td><a data-toggle="modal" href="#todo-task-modal">IAG-456</a></td>
+                                    			<td rowspan="2">
+                                    				<img src="../static/assets/img/avatars/avatar9.jpg" class="img-circle" />
+                                    			</td>
+                                    		</tr>
+                                    		<tr>
+                                    			<td><i class="fa fa-long-arrow-up red"></i></td>
+                                    			<td>完成这个的反正就要完成这个</td>
+                                    		</tr>
+                                    		<tr>
+                                    			<td>&nbsp;</td>
+                                    			<td><span class="badge badge-warning">IAG-FUNCTION</span></td>
+                                    			<td><span class="badge badge-default" title="工时">2</span></td>
+                                    		</tr>
+                                    	</table>
                                     </li>
-                                    <li class="list-group-item my-drag-handle"
-                                        style="min-height: 75px; padding:10px 10px;">
-                                        <div class="row">
-                                            <div class="col-lg-10 col-md-9 col-sm-9">
-                                                <div class="row">
-                                                    <div class="col-lg-2 col-md-2 col-sm-2">
-                                                        <i class="fa fa-bell"></i>
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10"
-                                                         style="padding-left: 0px;">
-
-                                                        <a data-toggle="modal" href="#todo-task-modal">IAG-456</a>
-                                                    </div>
-
-                                                </div>
-                                                <div class="row" style="margin-bottom: 10px;">
-                                                    <div class="col-lg-2 col-md-2 col-sm-2">
-                                                        <i class="fa fa-long-arrow-up red"></i>
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10"
-                                                         style="padding-left: 0px;">
-                                                        完成这个的反正就要完成这个
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-2 col-md-2 col-sm-2">
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10"
-                                                         style="padding-left: 0px;">
-                                                        <span class="badge badge-primary">IAG-FUNCTION</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-2 col-md-3 col-sm-3">
-                                                <div class="row">
-                                                    <div class="col-lg-12">
-                                                        <img src="../static/assets/img/avatars/avatar9.jpg"
-                                                             class="img-circle" style="width:35px; height: 35px;"/>
-
-                                                        <span class="badge badge-default">
-                                                            &nbsp;2
-                                                        &nbsp;
-                                                        </span>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
+                                    <li class="list-group-item my-drag-handle">
+                                    	<table>
+                                    		<tr>
+                                    			<td><i class="fa fa-bell"></i></td>
+                                    			<td><a data-toggle="modal" href="#todo-task-modal">IAG-456</a></td>
+                                    			<td rowspan="2">
+                                    				<img src="../static/assets/img/avatars/avatar9.jpg" class="img-circle" />
+                                    			</td>
+                                    		</tr>
+                                    		<tr>
+                                    			<td><i class="fa fa-long-arrow-up red"></i></td>
+                                    			<td>完成这个的反正就要完成这个</td>
+                                    		</tr>
+                                    		<tr>
+                                    			<td>&nbsp;</td>
+                                    			<td><span class="badge badge-warning">IAG-FUNCTION</span></td>
+                                    			<td><span class="badge badge-default" title="工时">2</span></td>
+                                    		</tr>
+                                    	</table>
                                     </li>
-                                    <li class="list-group-item my-drag-handle"
-                                        style="min-height: 75px; padding:10px 10px;">
-                                        <div class="row">
-                                            <div class="col-lg-10 col-md-9 col-sm-9">
-                                                <div class="row">
-                                                    <div class="col-lg-2 col-md-2 col-sm-2">
-                                                        <i class="fa fa-bell"></i>
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10"
-                                                         style="padding-left: 0px;">
-
-                                                        <a data-toggle="modal" href="#todo-task-modal">IAG-456</a>
-                                                    </div>
-
-                                                </div>
-                                                <div class="row" style="margin-bottom: 10px;">
-                                                    <div class="col-lg-2 col-md-2 col-sm-2">
-                                                        <i class="fa fa-long-arrow-up red"></i>
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10"
-                                                         style="padding-left: 0px;">
-                                                        完成这个的反正就要完成这个
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-2 col-md-2 col-sm-2">
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10"
-                                                         style="padding-left: 0px;">
-                                                        <span class="badge badge-primary">IAG-FUNCTION</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-2 col-md-3 col-sm-3">
-                                                <div class="row">
-                                                    <div class="col-lg-12">
-                                                        <img src="../static/assets/img/avatars/avatar9.jpg"
-                                                             class="img-circle" style="width:35px; height: 35px;"/>
-
-                                                        <span class="badge badge-default">
-                                                            &nbsp;2
-                                                        &nbsp;
-                                                        </span>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
+                                    <li class="list-group-item my-drag-handle">
+                                    	<table>
+                                    		<tr>
+                                    			<td><i class="fa fa-bell"></i></td>
+                                    			<td><a data-toggle="modal" href="#todo-task-modal">IAG-456</a></td>
+                                    			<td rowspan="2">
+                                    				<img src="../static/assets/img/avatars/avatar9.jpg" class="img-circle" />
+                                    			</td>
+                                    		</tr>
+                                    		<tr>
+                                    			<td><i class="fa fa-long-arrow-up red"></i></td>
+                                    			<td>完成这个的反正就要完成这个</td>
+                                    		</tr>
+                                    		<tr>
+                                    			<td>&nbsp;</td>
+                                    			<td><span class="badge badge-warning">IAG-FUNCTION</span></td>
+                                    			<td><span class="badge badge-default" title="工时">2</span></td>
+                                    		</tr>
+                                    	</table>
                                     </li>
-                                    <li class="list-group-item my-drag-handle"
-                                        style="min-height: 75px; padding:10px 10px;">
-                                        <div class="row">
-                                            <div class="col-lg-10 col-md-9 col-sm-9">
-                                                <div class="row">
-                                                    <div class="col-lg-2 col-md-2 col-sm-2">
-                                                        <i class="fa fa-bell"></i>
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10"
-                                                         style="padding-left: 0px;">
-
-                                                        <a data-toggle="modal" href="#todo-task-modal">IAG-456</a>
-                                                    </div>
-
-                                                </div>
-                                                <div class="row" style="margin-bottom: 10px;">
-                                                    <div class="col-lg-2 col-md-2 col-sm-2">
-                                                        <i class="fa fa-long-arrow-up red"></i>
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10"
-                                                         style="padding-left: 0px;">
-                                                        完成这个的反正就要完成这个
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-2 col-md-2 col-sm-2">
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10"
-                                                         style="padding-left: 0px;">
-                                                        <span class="badge badge-primary">IAG-FUNCTION</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-2 col-md-3 col-sm-3">
-                                                <div class="row">
-                                                    <div class="col-lg-12">
-                                                        <img src="../static/assets/img/avatars/avatar9.jpg"
-                                                             class="img-circle" style="width:35px; height: 35px;"/>
-
-                                                        <span class="badge badge-default">
-                                                            &nbsp;2
-                                                        &nbsp;
-                                                        </span>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
+                                    <li class="list-group-item my-drag-handle">
+                                    	<table>
+                                    		<tr>
+                                    			<td><i class="fa fa-bell"></i></td>
+                                    			<td><a data-toggle="modal" href="#todo-task-modal">IAG-456</a></td>
+                                    			<td rowspan="2">
+                                    				<img src="../static/assets/img/avatars/avatar9.jpg" class="img-circle" />
+                                    			</td>
+                                    		</tr>
+                                    		<tr>
+                                    			<td><i class="fa fa-long-arrow-up red"></i></td>
+                                    			<td>完成这个的反正就要完成这个</td>
+                                    		</tr>
+                                    		<tr>
+                                    			<td>&nbsp;</td>
+                                    			<td><span class="badge badge-warning">IAG-FUNCTION</span></td>
+                                    			<td><span class="badge badge-default" title="工时">2</span></td>
+                                    		</tr>
+                                    	</table>
                                     </li>
-                                    <li class="list-group-item my-drag-handle"
-                                        style="min-height: 75px; padding:10px 10px;">
-                                        <div class="row">
-                                            <div class="col-lg-10 col-md-9 col-sm-9">
-                                                <div class="row">
-                                                    <div class="col-lg-2 col-md-2 col-sm-2">
-                                                        <i class="fa fa-bell"></i>
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10"
-                                                         style="padding-left: 0px;">
-
-                                                        <a data-toggle="modal" href="#todo-task-modal">IAG-456</a>
-                                                    </div>
-
-                                                </div>
-                                                <div class="row" style="margin-bottom: 10px;">
-                                                    <div class="col-lg-2 col-md-2 col-sm-2">
-                                                        <i class="fa fa-long-arrow-up red"></i>
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10"
-                                                         style="padding-left: 0px;">
-                                                        完成这个的反正就要完成这个
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-2 col-md-2 col-sm-2">
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10"
-                                                         style="padding-left: 0px;">
-                                                        <span class="badge badge-primary">IAG-FUNCTION</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-2 col-md-3 col-sm-3">
-                                                <div class="row">
-                                                    <div class="col-lg-12">
-                                                        <img src="../static/assets/img/avatars/avatar9.jpg"
-                                                             class="img-circle" style="width:35px; height: 35px;"/>
-
-                                                        <span class="badge badge-default">
-                                                            &nbsp;2
-                                                        &nbsp;
-                                                        </span>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
+                                    <li class="list-group-item my-drag-handle">
+                                    	<table>
+                                    		<tr>
+                                    			<td><i class="fa fa-bell"></i></td>
+                                    			<td><a data-toggle="modal" href="#todo-task-modal">IAG-456</a></td>
+                                    			<td rowspan="2">
+                                    				<img src="../static/assets/img/avatars/avatar9.jpg" class="img-circle" />
+                                    			</td>
+                                    		</tr>
+                                    		<tr>
+                                    			<td><i class="fa fa-long-arrow-up red"></i></td>
+                                    			<td>完成这个的反正就要完成这个</td>
+                                    		</tr>
+                                    		<tr>
+                                    			<td>&nbsp;</td>
+                                    			<td><span class="badge badge-warning">IAG-FUNCTION</span></td>
+                                    			<td><span class="badge badge-default" title="工时">2</span></td>
+                                    		</tr>
+                                    	</table>
+                                    </li>
+                                    <li class="list-group-item my-drag-handle">
+                                    	<table>
+                                    		<tr>
+                                    			<td><i class="fa fa-bell"></i></td>
+                                    			<td><a data-toggle="modal" href="#todo-task-modal">IAG-456</a></td>
+                                    			<td rowspan="2">
+                                    				<img src="../static/assets/img/avatars/avatar9.jpg" class="img-circle" />
+                                    			</td>
+                                    		</tr>
+                                    		<tr>
+                                    			<td><i class="fa fa-long-arrow-up red"></i></td>
+                                    			<td>完成这个的反正就要完成这个</td>
+                                    		</tr>
+                                    		<tr>
+                                    			<td>&nbsp;</td>
+                                    			<td><span class="badge badge-warning">IAG-FUNCTION</span></td>
+                                    			<td><span class="badge badge-default" title="工时">2</span></td>
+                                    		</tr>
+                                    	</table>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="portlet light" style="margin-bottom: 5px; padding: 0px;">
                             <div class="portlet-title">
                                 <div class="caption">
-                                            <span class="caption-subject font-dark bold">
-                                                Inprogress
-                                            </span>
+                                    <span class="caption-subject font-dark bold">
+                                        Inprogress
+                                    </span>
                                 </div>
                             </div>
                             <div class="portlet-body">
                                 <ul id="issues_inprogress" class="list-group">
-                                    <li class="list-group-item my-drag-handle"
-                                        style="min-height: 75px; padding:10px 10px;">
-                                        <div class="row">
-                                            <div class="col-lg-10 col-md-9 col-sm-9">
-                                                <div class="row">
-                                                    <div class="col-lg-2 col-md-2 col-sm-2">
-                                                        <i class="fa fa-bell"></i>
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10"
-                                                         style="padding-left: 0px;">
-
-                                                        <a data-toggle="modal" href="#todo-task-modal">IAG-456</a>
-                                                    </div>
-
-                                                </div>
-                                                <div class="row" style="margin-bottom: 10px;">
-                                                    <div class="col-lg-2 col-md-2 col-sm-2">
-                                                        <i class="fa fa-long-arrow-up red"></i>
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10"
-                                                         style="padding-left: 0px;">
-                                                        完成这个的反正就要完成这个
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-2 col-md-2 col-sm-2">
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10"
-                                                         style="padding-left: 0px;">
-                                                        <span class="badge badge-primary">IAG-FUNCTION</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-2 col-md-3 col-sm-3">
-                                                <div class="row">
-                                                    <div class="col-lg-12">
-                                                        <img src="../static/assets/img/avatars/avatar9.jpg"
-                                                             class="img-circle" style="width:35px; height: 35px;"/>
-
-                                                        <span class="badge badge-default">
-                                                            &nbsp;2
-                                                        &nbsp;
-                                                        </span>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
+                                    <li class="list-group-item my-drag-handle">
+                                    	<table>
+                                    		<tr>
+                                    			<td><i class="fa fa-bell"></i></td>
+                                    			<td><a data-toggle="modal" href="#todo-task-modal">IAG-456</a></td>
+                                    			<td rowspan="2">
+                                    				<img src="../static/assets/img/avatars/avatar9.jpg" class="img-circle" />
+                                    			</td>
+                                    		</tr>
+                                    		<tr>
+                                    			<td><i class="fa fa-long-arrow-up red"></i></td>
+                                    			<td>完成这个的反正就要完成这个</td>
+                                    		</tr>
+                                    		<tr>
+                                    			<td>&nbsp;</td>
+                                    			<td><span class="badge badge-primary">IAG-FUNCTION</span></td>
+                                    			<td><span class="badge badge-default">2</span></td>
+                                    		</tr>
+                                    	</table>
                                     </li>
-                                    <li class="list-group-item my-drag-handle"
-                                        style="min-height: 75px; padding:10px 10px;">
-                                        <div class="row">
-                                            <div class="col-lg-10 col-md-9 col-sm-9">
-                                                <div class="row">
-                                                    <div class="col-lg-2 col-md-2 col-sm-2">
-                                                        <i class="fa fa-bell"></i>
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10"
-                                                         style="padding-left: 0px;">
-
-                                                        <a data-toggle="modal" href="#todo-task-modal">IAG-456</a>
-                                                    </div>
-
-                                                </div>
-                                                <div class="row" style="margin-bottom: 10px;">
-                                                    <div class="col-lg-2 col-md-2 col-sm-2">
-                                                        <i class="fa fa-long-arrow-up red"></i>
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10"
-                                                         style="padding-left: 0px;">
-                                                        完成这个的反正就要完成这个
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-2 col-md-2 col-sm-2">
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10"
-                                                         style="padding-left: 0px;">
-                                                        <span class="badge badge-primary">IAG-FUNCTION</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-2 col-md-3 col-sm-3">
-                                                <div class="row">
-                                                    <div class="col-lg-12">
-                                                        <img src="../static/assets/img/avatars/avatar9.jpg"
-                                                             class="img-circle" style="width:35px; height: 35px;"/>
-
-                                                        <span class="badge badge-default">
-                                                            &nbsp;2
-                                                        &nbsp;
-                                                        </span>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
+                                    <li class="list-group-item my-drag-handle">
+                                    	<table>
+                                    		<tr>
+                                    			<td><i class="fa fa-bell"></i></td>
+                                    			<td><a data-toggle="modal" href="#todo-task-modal">IAG-456</a></td>
+                                    			<td rowspan="2">
+                                    				<img src="../static/assets/img/avatars/avatar9.jpg" class="img-circle" />
+                                    			</td>
+                                    		</tr>
+                                    		<tr>
+                                    			<td><i class="fa fa-long-arrow-up red"></i></td>
+                                    			<td>完成这个的反正就要完成这个</td>
+                                    		</tr>
+                                    		<tr>
+                                    			<td>&nbsp;</td>
+                                    			<td><span class="badge badge-primary">IAG-FUNCTION</span></td>
+                                    			<td><span class="badge badge-default">2</span></td>
+                                    		</tr>
+                                    	</table>
+                                    </li>
+                                    <li class="list-group-item my-drag-handle">
+                                    	<table>
+                                    		<tr>
+                                    			<td><i class="fa fa-bell"></i></td>
+                                    			<td><a data-toggle="modal" href="#todo-task-modal">IAG-456</a></td>
+                                    			<td rowspan="2">
+                                    				<img src="../static/assets/img/avatars/avatar9.jpg" class="img-circle" />
+                                    			</td>
+                                    		</tr>
+                                    		<tr>
+                                    			<td><i class="fa fa-long-arrow-up red"></i></td>
+                                    			<td>完成这个的反正就要完成这个</td>
+                                    		</tr>
+                                    		<tr>
+                                    			<td>&nbsp;</td>
+                                    			<td><span class="badge badge-primary">IAG-FUNCTION</span></td>
+                                    			<td><span class="badge badge-default">2</span></td>
+                                    		</tr>
+                                    	</table>
+                                    </li>
+                                    <li class="list-group-item my-drag-handle">
+                                    	<table>
+                                    		<tr>
+                                    			<td><i class="fa fa-bell"></i></td>
+                                    			<td><a data-toggle="modal" href="#todo-task-modal">IAG-456</a></td>
+                                    			<td rowspan="2">
+                                    				<img src="../static/assets/img/avatars/avatar9.jpg" class="img-circle" />
+                                    			</td>
+                                    		</tr>
+                                    		<tr>
+                                    			<td><i class="fa fa-long-arrow-up red"></i></td>
+                                    			<td>完成这个的反正就要完成这个</td>
+                                    		</tr>
+                                    		<tr>
+                                    			<td>&nbsp;</td>
+                                    			<td><span class="badge badge-primary">IAG-FUNCTION</span></td>
+                                    			<td><span class="badge badge-default">2</span></td>
+                                    		</tr>
+                                    	</table>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="portlet light" style="margin-bottom: 5px; padding: 0px;">
                             <div class="portlet-title">
                                 <div class="caption">
-                                            <span class="caption-subject font-dark bold">
-                                                Done
-                                            </span>
+                                    <span class="caption-subject font-dark bold">
+                                        Done
+                                    </span>
                                 </div>
                             </div>
                             <div class="portlet-body">
                                 <ul id="issues_done" class="list-group">
-                                    <li class="list-group-item my-drag-handle"
-                                        style="min-height: 75px; padding:10px 10px;">
-                                        <div class="row">
-                                            <div class="col-lg-10 col-md-9 col-sm-9">
-                                                <div class="row">
-                                                    <div class="col-lg-2 col-md-2 col-sm-2">
-                                                        <i class="fa fa-bell"></i>
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10"
-                                                         style="padding-left: 0px;">
-
-                                                        <a data-toggle="modal" href="#todo-task-modal">IAG-456</a>
-                                                    </div>
-
-                                                </div>
-                                                <div class="row" style="margin-bottom: 10px;">
-                                                    <div class="col-lg-2 col-md-2 col-sm-2">
-                                                        <i class="fa fa-long-arrow-up red"></i>
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10"
-                                                         style="padding-left: 0px;">
-                                                        完成这个的反正就要完成这个
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-2 col-md-2 col-sm-2">
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10"
-                                                         style="padding-left: 0px;">
-                                                        <span class="badge badge-primary">IAG-FUNCTION</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-2 col-md-3 col-sm-3">
-                                                <div class="row">
-                                                    <div class="col-lg-12">
-                                                        <img src="../static/assets/img/avatars/avatar9.jpg"
-                                                             class="img-circle" style="width:35px; height: 35px;"/>
-
-                                                        <span class="badge badge-default">
-                                                            &nbsp;2
-                                                        &nbsp;
-                                                        </span>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
+                                    <li class="list-group-item my-drag-handle">
+                                    	<table>
+                                    		<tr>
+                                    			<td><i class="fa fa-bell"></i></td>
+                                    			<td><a data-toggle="modal" href="#todo-task-modal">IAG-456</a></td>
+                                    			<td rowspan="2">
+                                    				<img src="../static/assets/img/avatars/avatar9.jpg" class="img-circle" />
+                                    			</td>
+                                    		</tr>
+                                    		<tr>
+                                    			<td><i class="fa fa-long-arrow-up red"></i></td>
+                                    			<td>完成这个的反正就要完成这个</td>
+                                    		</tr>
+                                    		<tr>
+                                    			<td>&nbsp;</td>
+                                    			<td><span class="badge badge-success">IAG-FUNCTION</span></td>
+                                    			<td><span class="badge badge-default">2</span></td>
+                                    		</tr>
+                                    	</table>
+                                    </li>
+                                    <li class="list-group-item my-drag-handle">
+                                    	<table>
+                                    		<tr>
+                                    			<td><i class="fa fa-bell"></i></td>
+                                    			<td><a data-toggle="modal" href="#todo-task-modal">IAG-456</a></td>
+                                    			<td rowspan="2">
+                                    				<img src="../static/assets/img/avatars/avatar9.jpg" class="img-circle" />
+                                    			</td>
+                                    		</tr>
+                                    		<tr>
+                                    			<td><i class="fa fa-long-arrow-up red"></i></td>
+                                    			<td>完成这个的反正就要完成这个</td>
+                                    		</tr>
+                                    		<tr>
+                                    			<td>&nbsp;</td>
+                                    			<td><span class="badge badge-success">IAG-FUNCTION</span></td>
+                                    			<td><span class="badge badge-default">2</span></td>
+                                    		</tr>
+                                    	</table>
                                     </li>
                                 </ul>
                             </div>

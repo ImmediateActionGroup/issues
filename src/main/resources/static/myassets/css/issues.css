@@ -1,0 +1,39 @@
+#issues_todo,
+#issues_inprogress,
+#issues_done {
+  min-height: 200px;
+}
+#issues_todo table,
+#issues_inprogress table,
+#issues_done table {
+  width: 100%;
+}
+#issues_todo table tr td,
+#issues_inprogress table tr td,
+#issues_done table tr td {
+  vertical-align: top;
+  padding: 2px;
+  text-align: left;
+}
+#issues_todo table tr:nth-of-type(2) td:last-of-type,
+#issues_inprogress table tr:nth-of-type(2) td:last-of-type,
+#issues_done table tr:nth-of-type(2) td:last-of-type {
+  text-align: left;
+  width: auto;
+}
+#issues_todo table tr td:first-of-type,
+#issues_inprogress table tr td:first-of-type,
+#issues_done table tr td:first-of-type {
+  width: 30px;
+}
+#issues_todo table tr td:last-of-type,
+#issues_inprogress table tr td:last-of-type,
+#issues_done table tr td:last-of-type {
+  width: 30px;
+  text-align: right;
+}
+#issues_todo table tr:last-of-type td:last-of-type,
+#issues_inprogress table tr:last-of-type td:last-of-type,
+#issues_done table tr:last-of-type td:last-of-type {
+  text-align: center;
+}
