@@ -19,6 +19,9 @@ public class Sprint {
     private Date endTime;
     private Date createTime;
     private Date lastModifyTime;
+
+    private int status; //sprint 状态
+
     @ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY)
     private Project project;
 
@@ -89,5 +92,13 @@ public class Sprint {
 
     public void setIssuesList(List<Issues> issuesList) {
         this.issuesList = issuesList;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

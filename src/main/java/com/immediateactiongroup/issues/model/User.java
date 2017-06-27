@@ -38,6 +38,15 @@ public class User implements UserDetails{
     @OneToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY, mappedBy = "creater")
     private List<Issues> issuesList = new ArrayList<>();
 
+    @OneToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY, mappedBy = "assignee")
+    private List<Issues> assignIssuesList = new ArrayList<>();
+
+    @OneToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY, mappedBy = "reporter")
+    private List<Issues> reporterIssuesList = new ArrayList<>();
+
+    @OneToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY, mappedBy = "operater")
+    private List<IssuesHistory> issuesHistories = new ArrayList<>();
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> auths = new ArrayList<>();
@@ -167,5 +176,29 @@ public class User implements UserDetails{
 
     public void setProjects(List<Project> projects) {
         this.projects = projects;
+    }
+
+    public List<Issues> getAssignIssuesList() {
+        return assignIssuesList;
+    }
+
+    public void setAssignIssuesList(List<Issues> assignIssuesList) {
+        this.assignIssuesList = assignIssuesList;
+    }
+
+    public List<Issues> getReporterIssuesList() {
+        return reporterIssuesList;
+    }
+
+    public void setReporterIssuesList(List<Issues> reporterIssuesList) {
+        this.reporterIssuesList = reporterIssuesList;
+    }
+
+    public List<IssuesHistory> getIssuesHistories() {
+        return issuesHistories;
+    }
+
+    public void setIssuesHistories(List<IssuesHistory> issuesHistories) {
+        this.issuesHistories = issuesHistories;
     }
 }
