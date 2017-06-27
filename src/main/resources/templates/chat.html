@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Chat test</title>
+</head>
+<body>
+    <h1>chat test</h1>
+    <div id="content" style="width:300px; height: 300px; border: 1px solid #000;">
+        <div id="chat" style="width:200px; padding:3px; margin:3px; border:1px solid #0c91e5;">
+            message
+        </div>
+    </div>
+    <form>
+        <input id="messageInput" type="text" name="message"/>
+        <button type="button" id="send">send</button>
+    </form>
+
+
+<script src="../static/assets/global/plugins/jquery.min.js" th:src="@{/assets/global/plugins/jquery.min.js}" type="text/javascript"></script>
+<script src="../static/assets/sockjs/sockjs.js" th:src="@{/assets/sockjs/sockjs.js}" type="text/javascript"></script>
+<script src="../static/assets/stomp/stomp.js" th:src="@{/assets/stomp/stomp.js}" type="text/javascript"></script>
+<script src="../static/myassets/js/chat.js" th:src="@{/myassets/js/chat.js}" type="text/javascript"></script>
+
+</body>
+</html>
