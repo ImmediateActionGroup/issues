@@ -7,5 +7,5 @@ import org.springframework.data.repository.CrudRepository;
  * Created by beishan on 2017/6/17.
  */
 public interface SprintRepository extends CrudRepository<Sprint, Long>{
-
+    Iterable<Sprint> findAllById(Long id);
 }
