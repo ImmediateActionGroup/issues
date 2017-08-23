@@ -1,4 +1,4 @@
-package com.immediateactiongroup.issues.service;
+package com.immediateactiongroup.issues.security;
 
 import com.immediateactiongroup.issues.model.User;
 import com.immediateactiongroup.issues.model.repository.UserRepository;
@@ -9,18 +9,20 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 /**
- * Created by beishan on 2017/6/24.
+ * @Author xueshan.wei@mljr.com
+ * @Date 2017/8/23 下午5:01
  */
-//@Service
-public class UserService implements UserDetailsService{
+@Service(value = "jwtUserDetailsService")
+public class JwtUserDetailsService implements UserDetailsService {
+
     @Autowired
     private UserRepository userRepository;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
-        if(user == null){
-            throw new UsernameNotFoundException("user is not exist");
+        if( user == null){
+            throw new UsernameNotFoundException("No user found with username:" + username);
         }
-        return user;
+        return JwtUserFactory.create(user);
     }
 }
