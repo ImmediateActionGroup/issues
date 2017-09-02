@@ -39,9 +39,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         http.csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                .anyRequest().authenticated()
+                .antMatchers("/auth/**").permitAll()
+                .anyRequest().authenticated();
                 //.and().formLogin().loginPage("/login").defaultSuccessUrl("/index").failureUrl("/login?error").permitAll()
-                .and().logout().permitAll();
+                //.and().logout().permitAll()
+
+        //禁用缓存
+        http.headers().cacheControl();
     }
 
     @Override
