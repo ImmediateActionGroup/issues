@@ -33,8 +33,8 @@ public class JwtUtilsTest {
     @Test
     public void testGetClaimsFromToken(){
         String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ4dWVzaGFuIiwibmlja25hbWUiOiJiZWlzaGFuIiwiZXhwIjoxNTA0NDAyMTU3fQ._D8I9vcE98Gvn1SbN8xVJpSAws1HguxeDjv_s6UdxXeF2MjbVwmcrFB6IpPTk2zyWlWfOq5yCu95lQy9VdRIsA";
-        Claims claims = jwtUtils.getClaimsFromToken(token);
-        String subject = claims.getSubject();
+        //Claims claims = jwtUtils.getClaimsFromToken(token);
+        String subject = jwtUtils.getUsernameFromToken(token);
 
         System.out.println(subject);
     }

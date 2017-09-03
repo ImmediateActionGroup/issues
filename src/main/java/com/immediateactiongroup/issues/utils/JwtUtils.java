@@ -1,5 +1,7 @@
 package com.immediateactiongroup.issues.utils;
 
+import com.immediateactiongroup.issues.commons.exception.ExceptionEnum;
+import com.immediateactiongroup.issues.commons.exception.TokenException;
 import com.immediateactiongroup.issues.security.JwtConstant;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -49,17 +51,15 @@ public class JwtUtils {
 
 
     public Claims getClaimsFromToken(String token){
-        Claims claims;
-        try{
+        Claims claims = null;
+        try {
             claims = Jwts.parser()
                     .setSigningKey(generateKey())
                     .parseClaimsJws(token)
                     .getBody();
-        } catch (Exception e){
-            claims = null;
-            LOGGER.error("【Jwt】token 解析出错....(parse token has a error)");
+        }catch (Exception e){
+            LOGGER.error("【Jwt】illegal token......");
         }
-
         return claims;
     }
 
@@ -84,9 +84,12 @@ public class JwtUtils {
      */
     public boolean validateToken(String token, UserDetails userDetails){
         final Claims claims = getClaimsFromToken(token);
-        final String username = claims.getSubject();
-        return username.equals(userDetails.getUsername()) &&
-                !this.isTokenExpired(token);
+        if(claims != null) {
+            final String username = claims.getSubject();
+            return username.equals(userDetails.getUsername()) &&
+                    !this.isTokenExpired(token);
+        }
+        return false;
     }
 
     /**
@@ -105,13 +108,14 @@ public class JwtUtils {
      * @return
      */
     public Date getExpirationDateFromToken(String token){
-        Date expiration;
+        Date expiration = null;
         final Claims claims = getClaimsFromToken(token);
-        try{
-            expiration = claims.getExpiration();
-        }catch (Exception e){
-            LOGGER.error("【Jwt】 获取过期时间失败");
-            expiration = null;
+        if(claims != null) {
+            try {
+                expiration = claims.getExpiration();
+            } catch (Exception e) {
+                LOGGER.error("【Jwt】 获取过期时间失败");
+            }
         }
         return expiration;
     }
@@ -122,9 +126,11 @@ public class JwtUtils {
      * @return
      */
     public String getUsernameFromToken(String token){
-        String username;
+        String username = null;
         Claims claims = getClaimsFromToken(token);
-        username = claims.getSubject();
+        if(claims != null){
+            username = claims.getSubject();
+        }
         return username;
     }
 

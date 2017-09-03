@@ -1,5 +1,7 @@
 package com.immediateactiongroup.issues.config;
 
+import com.immediateactiongroup.issues.commons.exception.ExceptionEnum;
+import com.immediateactiongroup.issues.commons.exception.TokenException;
 import com.immediateactiongroup.issues.utils.JwtUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,6 +52,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             final String authToken = authHeader.substring(this.tokenHead.length());
 
             final String username = jwtUtils.getUsernameFromToken(authToken);
+
 
             if(username != null && SecurityContextHolder.getContext().getAuthentication() == null){
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);

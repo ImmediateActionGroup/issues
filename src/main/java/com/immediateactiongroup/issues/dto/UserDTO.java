@@ -26,6 +26,18 @@ public class UserDTO {
         this.username = user.getUsername();
     }
 
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "id=" + id +
+                ", nickname='" + nickname + '\'' +
+                ", username='" + username + '\'' +
+                ", enable=" + enable +
+                ", createTime=" + createTime +
+                ", lastModifyTime=" + lastModifyTime +
+                ", lastLoginTime=" + lastLoginTime +
+                '}';
+    }
 
     public Long getId() {
         return id;

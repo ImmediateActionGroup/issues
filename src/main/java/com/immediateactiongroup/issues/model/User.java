@@ -69,7 +69,7 @@ public class User implements UserDetails{
         this.lastLoginTime = now;
         this.lastModifyTime = now;
         this.enable = UserConstant.UserAccess.ENABLE.getValue();
-        this.nickname = "还没有昵称";
+        this.nickname = "don't have nickname";
         this.getRoles().add(role);
     }
 
