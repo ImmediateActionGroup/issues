@@ -1,7 +1,10 @@
 package com.immediateactiongroup.issues.utils;
 
+import com.immediateactiongroup.issues.security.JwtUser;
 import io.jsonwebtoken.Claims;
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -12,28 +15,32 @@ import java.util.Map;
  * @Date 2017/9/1 下午5:03
  */
 public class JwtUtilsTest {
-
+    private JwtUtils jwtUtils;
+    @Before
+    public void before(){
+        jwtUtils = new JwtUtils();
+    }
     @Test
     public void testGenerateToken(){
         Map<String , Object> claims = new HashMap<>();
         claims.put("sub", "xueshan");
         claims.put("nickname", "beishan");
-        String token = JwtUtils.generateToken(claims);
+        String token = jwtUtils.generateToken(claims);
         System.out.println(token);
 
     }
 
     @Test
     public void testGetClaimsFromToken(){
-        String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ4dWVzaGFuIiwibmlja25hbWUiOiJiZWlzaGFuIiwiZXhwIjoxNTA0MzIyODYwfQ.FOJq2sJdjhs8ddc4dNF9m4Pr7BxP4e8NGOVU8nnCrSZlJa1ryy4DkpjpuK6gp6WLyPrdFoswRx4LiREmc7sREg";
-
-        Claims claims = JwtUtils.getClaimsFromToken(token);
+        String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ4dWVzaGFuIiwibmlja25hbWUiOiJiZWlzaGFuIiwiZXhwIjoxNTA0NDAyMTU3fQ._D8I9vcE98Gvn1SbN8xVJpSAws1HguxeDjv_s6UdxXeF2MjbVwmcrFB6IpPTk2zyWlWfOq5yCu95lQy9VdRIsA";
+        Claims claims = jwtUtils.getClaimsFromToken(token);
         String subject = claims.getSubject();
 
         System.out.println(subject);
     }
 
     @Test
+    @Ignore
     public void test() throws Exception{
         byte [] encodeKey = Base64.encodeBase64("beishan雪山".getBytes());
         System.out.println(new String(encodeKey, "utf-8"));

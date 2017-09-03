@@ -1,5 +1,7 @@
 package com.immediateactiongroup.issues.dto;
 
+import com.immediateactiongroup.issues.model.User;
+
 import java.util.Date;
 
 /**
@@ -13,6 +15,16 @@ public class UserDTO {
     private Date createTime;
     private Date lastModifyTime;
     private Date lastLoginTime;
+
+    public UserDTO(User user){
+        this.createTime = user.getCreateTime();
+        this.lastLoginTime = user.getLastLoginTime();
+        this.lastModifyTime = user.getLastModifyTime();
+        this.enable = user.getEnable();
+        this.id = user.getId();
+        this.nickname = user.getNickname();
+        this.username = user.getUsername();
+    }
 
 
     public Long getId() {

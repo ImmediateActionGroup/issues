@@ -1,5 +1,6 @@
 package com.immediateactiongroup.issues.model;
 
+import com.immediateactiongroup.issues.commons.constant.UserConstant;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -55,6 +56,21 @@ public class User implements UserDetails{
             auths.add(new SimpleGrantedAuthority(role.getName()));
         }
         return auths;
+    }
+
+    public User() {
+    }
+
+    public User(String username, String password, Role role) {
+        this.username = username;
+        this.password = password;
+        Date now = new Date();
+        this.createTime = now;
+        this.lastLoginTime = now;
+        this.lastModifyTime = now;
+        this.enable = UserConstant.UserAccess.ENABLE.getValue();
+        this.nickname = "还没有昵称";
+        this.getRoles().add(role);
     }
 
     @Override
