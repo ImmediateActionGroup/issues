@@ -5,6 +5,7 @@ import com.immediateactiongroup.issues.dto.validate.UserAddDTO;
 import com.immediateactiongroup.issues.dto.validate.UserLoginDTO;
 import com.immediateactiongroup.issues.service.AuthService;
 import com.immediateactiongroup.issues.vo.ResponseVO;
+import com.immediateactiongroup.issues.vo.TokenVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,8 @@ public class AuthController {
     public ResponseVO getAuthToken(@RequestBody UserLoginDTO userLoginDTO){
         System.out.println(userLoginDTO);
         final String token = authService.login(userLoginDTO.getUsername(), userLoginDTO.getPassword());
-        return ResponseVO.buildSuccess(token);
+        TokenVO tokenVO = new TokenVO(token);
+        return ResponseVO.buildSuccess(tokenVO);
     }
 
     @PostMapping("/user")

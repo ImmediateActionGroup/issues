@@ -1,7 +1,9 @@
 package com.immediateactiongroup.issues.controller;
 
+import com.immediateactiongroup.issues.dto.UserDTO;
 import com.immediateactiongroup.issues.model.User;
 import com.immediateactiongroup.issues.model.repository.UserRepository;
+import com.immediateactiongroup.issues.service.UserService;
 import com.immediateactiongroup.issues.vo.ResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,12 +22,12 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @GetMapping("/users")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseVO queryUsers(){
-        List<User> users = userRepository.findAll();
+        List<UserDTO> users = userService.queryAll();
         return ResponseVO.buildSuccess(users);
     }
 }

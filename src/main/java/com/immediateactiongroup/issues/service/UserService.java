@@ -1,26 +1,19 @@
 package com.immediateactiongroup.issues.service;
 
-import com.immediateactiongroup.issues.model.User;
-import com.immediateactiongroup.issues.model.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
+import com.immediateactiongroup.issues.dto.AddUserDTO;
+import com.immediateactiongroup.issues.dto.UserDTO;
+
+import java.util.List;
 
 /**
- * Created by beishan on 2017/6/24.
+ * @Author xueshan.wei@mljr.com
+ * @Date 2017/9/3 下午10:03
  */
-//@Service
-public class UserService implements UserDetailsService{
-    @Autowired
-    private UserRepository userRepository;
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
-        if(user == null){
-            throw new UsernameNotFoundException("user is not exist");
-        }
-        return user;
-    }
+public interface UserService {
+
+    UserDTO addUser(AddUserDTO addUserDTO);
+
+    void deleteUser(Long id);
+
+    List<UserDTO> queryAll();
 }
