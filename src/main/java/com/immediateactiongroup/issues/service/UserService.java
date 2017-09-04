@@ -1,5 +1,6 @@
 package com.immediateactiongroup.issues.service;
 
+import com.immediateactiongroup.issues.commons.exception.BusinessException;
 import com.immediateactiongroup.issues.dto.AddUserDTO;
 import com.immediateactiongroup.issues.dto.UserDTO;
 
@@ -13,7 +14,9 @@ public interface UserService {
 
     UserDTO addUser(AddUserDTO addUserDTO);
 
-    void deleteUser(Long id);
+    void deleteUser(Long id) throws BusinessException;
+
+    void deleteUsers(Long ...ids) throws BusinessException;
 
     List<UserDTO> queryAll();
 }
