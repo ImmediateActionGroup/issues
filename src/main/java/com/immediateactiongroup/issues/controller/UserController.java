@@ -64,5 +64,9 @@ public class UserController {
         return ResponseVO.buildSuccess("删除用户成功[" + id + "]", null);
     }
 
+    public ResponseVO updateUser() throws BusinessException{
+        // TODO: 2017/9/14
+        return ResponseVO.buildSuccess("更新用户信息成功", null);
+    }
 
 }

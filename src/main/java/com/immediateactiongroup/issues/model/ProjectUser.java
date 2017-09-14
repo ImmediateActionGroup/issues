@@ -1,5 +1,7 @@
 package com.immediateactiongroup.issues.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -8,6 +10,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "project_user")
+@Data
 public class ProjectUser {
 
     @Id
@@ -23,35 +26,6 @@ public class ProjectUser {
 
     private Date joinTime;
 
-    public Long getId() {
-        return id;
-    }
+    private Integer role;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Project getProject() {
-        return project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Date getJoinTime() {
-        return joinTime;
-    }
-
-    public void setJoinTime(Date joinTime) {
-        this.joinTime = joinTime;
-    }
 }

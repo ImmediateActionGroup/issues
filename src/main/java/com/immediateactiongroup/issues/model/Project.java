@@ -13,15 +13,15 @@ public class Project {
 
     @Id
     @GeneratedValue
-    private Long id;
-    private String name;
-    private String project_key;
-    private String description;
-    private Date createTime;
-    private Date lastModifyTime;
+    private Long                id;
+    private String              name;
+    private String              projectKey;
+    private String              description;
+    private Date                createTime;
+    private Date                lastModifyTime;
 
     @ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    private User creater;
+    private User                creater;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "project_user", joinColumns = {@JoinColumn(name = "project_id")},
@@ -56,12 +56,12 @@ public class Project {
         this.name = name;
     }
 
-    public String getProject_key() {
-        return project_key;
+    public String getProjectKey() {
+        return projectKey;
     }
 
-    public void setProject_key(String project_key) {
-        this.project_key = project_key;
+    public void setProjectKey(String projectKey) {
+        this.projectKey = projectKey;
     }
 
     public String getDescription() {

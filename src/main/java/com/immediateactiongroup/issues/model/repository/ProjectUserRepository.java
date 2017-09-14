@@ -8,4 +8,5 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface ProjectUserRepository extends CrudRepository<ProjectUser, Long> {
 
+    ProjectUser findByProjectIdAndUserId(Long pid, Long uid);
 }

@@ -4,11 +4,14 @@ import com.immediateactiongroup.issues.commons.exception.BusinessException;
 import com.immediateactiongroup.issues.commons.exception.ExceptionEnum;
 import com.immediateactiongroup.issues.dto.AddUserDTO;
 import com.immediateactiongroup.issues.dto.UserDTO;
+import com.immediateactiongroup.issues.dto.validate.UserUpdateDTO;
 import com.immediateactiongroup.issues.model.Role;
 import com.immediateactiongroup.issues.model.User;
 import com.immediateactiongroup.issues.model.repository.RoleRepository;
 import com.immediateactiongroup.issues.model.repository.UserRepository;
 import com.immediateactiongroup.issues.service.UserService;
+import com.immediateactiongroup.issues.utils.DateUtils;
+import com.immediateactiongroup.issues.utils.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +34,49 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Override
+    public void changeUserPassword(Long userId, String oldPassword, String newPassword) throws BusinessException {
+        User waitUpdateUser = userRepository.findById(userId);
+
+        if(waitUpdateUser == null){
+            throw new BusinessException(ExceptionEnum.USER_NOT_EXIST);
+        }
+
+        final String encodeOldPassword = SecurityUtils.encode(oldPassword);
+
+        if(!waitUpdateUser.getPassword().equals(encodeOldPassword)){
+            throw new BusinessException(ExceptionEnum.USER_OLDPWD_ERROR);
+        }
+        waitUpdateUser.setLastModifyTime(DateUtils.getNow());
+        userRepository.save(waitUpdateUser);
+    }
+
+    @Override
+    public void changeUserPassword(Long userId, String newPassword) throws BusinessException {
+        User waitUpdateUser = userRepository.findById(userId);
+
+        if(waitUpdateUser == null){
+            throw new BusinessException(ExceptionEnum.USER_NOT_EXIST);
+        }
+
+        waitUpdateUser.setPassword(SecurityUtils.encode(newPassword));
+        waitUpdateUser.setLastModifyTime(DateUtils.getNow());
+        userRepository.save(waitUpdateUser);
+    }
+
+    @Override
+    public void updateUserInfo(UserUpdateDTO userUpdateDTO) throws BusinessException {
+        User waitUpdateUser = userRepository.findById(userUpdateDTO.getId());
+
+        if(waitUpdateUser == null){
+            throw new BusinessException(ExceptionEnum.USER_NOT_EXIST);
+        }
+
+        waitUpdateUser.setNickname(userUpdateDTO.getNickname());
+        waitUpdateUser.setLastModifyTime(DateUtils.getNow());
+        userRepository.save(waitUpdateUser);
+    }
 
     @Override
     public UserDTO addUser(AddUserDTO addUserDTO) {

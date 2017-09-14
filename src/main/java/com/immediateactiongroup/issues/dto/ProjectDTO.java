@@ -19,7 +19,7 @@ public class ProjectDTO {
     public ProjectDTO(Project project) {
         this.id = project.getId();
         this.name = project.getName();
-        this.projectKey = project.getProject_key();
+        this.projectKey = project.getProjectKey();
         this.description = project.getDescription();
         this.createTime = project.getCreateTime();
         this.lastModifyTime = project.getLastModifyTime();
