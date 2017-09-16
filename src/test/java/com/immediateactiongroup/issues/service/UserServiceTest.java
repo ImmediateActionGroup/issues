@@ -26,4 +26,14 @@ public class UserServiceTest extends IssuesApplicationTests {
         AddUserDTO addUserDTO = new AddUserDTO("tester01", "123456", UserRoleEnum.ROLE_USER);
         userService.addUser(addUserDTO);
     }
+
+    @Test
+    public void testChangeUserPassword1() throws Exception{
+        userService.changeUserPassword(1L, "123456");
+    }
+
+    @Test
+    public void testChangeUserPassword2() throws Exception{
+        userService.changeUserPassword(2L, "123456", "654321");
+    }
 }
