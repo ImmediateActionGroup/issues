@@ -1,12 +1,20 @@
 package com.immediateactiongroup.issues.dto;
 
 import com.immediateactiongroup.issues.model.Project;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 /**
  * Created by beishan on 2017/6/29.
  */
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProjectDTO {
     private Long id;
     private String name;
@@ -23,61 +31,5 @@ public class ProjectDTO {
         this.description = project.getDescription();
         this.createTime = project.getCreateTime();
         this.lastModifyTime = project.getLastModifyTime();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getProjectKey() {
-        return projectKey;
-    }
-
-    public void setProjectKey(String projectKey) {
-        this.projectKey = projectKey;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getLastModifyTime() {
-        return lastModifyTime;
-    }
-
-    public void setLastModifyTime(Date lastModifyTime) {
-        this.lastModifyTime = lastModifyTime;
-    }
-
-    public UserDTO getCreater() {
-        return creater;
-    }
-
-    public void setCreater(UserDTO creater) {
-        this.creater = creater;
     }
 }

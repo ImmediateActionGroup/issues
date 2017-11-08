@@ -5,6 +5,7 @@ import com.immediateactiongroup.issues.commons.exception.BusinessException;
 import com.immediateactiongroup.issues.commons.exception.ExceptionEnum;
 import com.immediateactiongroup.issues.dto.ProjectAddDTO;
 import com.immediateactiongroup.issues.dto.ProjectDTO;
+import com.immediateactiongroup.issues.dto.ProjectUpdateDTO;
 import com.immediateactiongroup.issues.model.Project;
 import com.immediateactiongroup.issues.model.User;
 import com.immediateactiongroup.issues.model.repository.ProjectRepository;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * @Author xueshan.wei@mljr.com
@@ -35,6 +37,56 @@ public class ProjectServiceImpl implements ProjectService {
     private ProjectUserService projectUserService;
 
     @Override
+    public ProjectDTO querySingleById(Long id) throws BusinessException {
+        Project project = projectRepository.findOne(id);
+        if(Objects.isNull(project)){
+            return null;
+        }
+        return ProjectDTO.builder()
+                .id(project.getId())
+                .name(project.getName())
+                .description(project.getDescription())
+                .projectKey(project.getProjectKey())
+                .creater(null)
+                .createTime(project.getCreateTime())
+                .lastModifyTime(project.getLastModifyTime())
+                .build();
+    }
+
+    @Override
+    public ProjectDTO querySingleByName(String name) throws BusinessException {
+        Project project = projectRepository.findByName(name);
+        if(Objects.isNull(project)){
+            return null;
+        }
+        return ProjectDTO.builder()
+                .id(project.getId())
+                .name(project.getName())
+                .description(project.getDescription())
+                .projectKey(project.getProjectKey())
+                .creater(null)
+                .createTime(project.getCreateTime())
+                .lastModifyTime(project.getLastModifyTime())
+                .build();
+    }
+
+    @Override
+    public ProjectDTO querySingleByKey(String key) throws BusinessException {
+        // TODO: 2017/11/9  
+        return null;
+    }
+
+    @Override
+    public void updateProject(ProjectUpdateDTO projectUpdateDTO) throws BusinessException {
+        // TODO: 2017/11/8
+    }
+
+    @Override
+    public void removeMemberFromProject() throws BusinessException {
+        // TODO: 2017/11/8
+    }
+
+    @Override
     public ProjectDTO addProject(ProjectAddDTO projectAddDTO) throws BusinessException {
         User user = userRepository.findById(projectAddDTO.getCreaterId());
         if(user == null){
@@ -45,7 +97,7 @@ public class ProjectServiceImpl implements ProjectService {
         Project project = projectRepository.findByNameAndProjectKey(projectAddDTO.getName(), projectAddDTO.getKey());
 
         //检查项目是否存在
-        if(project != null){
+        if(Objects.nonNull(project)){
             throw new BusinessException(ExceptionEnum.PROJECT_ADD_EXIST);
         }
         project = new Project();

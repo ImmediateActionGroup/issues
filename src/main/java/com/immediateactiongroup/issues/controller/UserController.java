@@ -3,8 +3,10 @@ package com.immediateactiongroup.issues.controller;
 import com.immediateactiongroup.issues.commons.enums.UserRoleEnum;
 import com.immediateactiongroup.issues.commons.exception.BusinessException;
 import com.immediateactiongroup.issues.dto.AddUserDTO;
+import com.immediateactiongroup.issues.dto.BatchDeleteUserDTO;
 import com.immediateactiongroup.issues.dto.UserDTO;
 import com.immediateactiongroup.issues.dto.validate.UserAddDTO;
+import com.immediateactiongroup.issues.dto.validate.UserUpdateDTO;
 import com.immediateactiongroup.issues.service.UserService;
 import com.immediateactiongroup.issues.vo.ResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,9 +66,58 @@ public class UserController {
         return ResponseVO.buildSuccess("删除用户成功[" + id + "]", null);
     }
 
-    public ResponseVO updateUser() throws BusinessException{
-        // TODO: 2017/9/14
-        return ResponseVO.buildSuccess("更新用户信息成功", null);
+    /**
+     * 批量删除用户
+     *
+     * @param batchDeleteUserDTO
+     * @return
+     * @throws BusinessException
+     */
+    @DeleteMapping("/users")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseVO batchDeleteUser(@RequestBody BatchDeleteUserDTO batchDeleteUserDTO) throws BusinessException{
+
+        userService.deleteUsers(batchDeleteUserDTO.getIds());
+        return ResponseVO.buildSuccess("批量删除用户信息成功");
+    }
+
+    /**
+     * 更新用户信息
+     * @param userUpdateDTO 参数
+     * @return 修改后的用户信息
+     * @throws BusinessException 出错时抛出的异常
+     */
+    @PutMapping("/sys/user/{id}")
+    public ResponseVO updateUser(@RequestBody UserUpdateDTO userUpdateDTO) throws BusinessException{
+        UserDTO userDTO = userService.updateUserInfo(userUpdateDTO);
+        return ResponseVO.buildSuccess("更新用户信息成功", userDTO);
+    }
+
+    /**
+     * 修改用户密码
+     * 用户身份：管理员
+     * @return
+     * @throws BusinessException
+     */
+    @PutMapping("/sys/user/{id}/password")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseVO changeUserPasswordSys(@PathVariable Long id, @RequestParam String newPassword) throws BusinessException{
+        userService.changeUserPassword(id, newPassword);
+        return ResponseVO.buildSuccess("修改用户密码成功", null);
+    }
+
+    /**
+     * 修改用户密码
+     * 用户身份：普通用户（自己）
+     * @return
+     * @throws BusinessException
+     */
+    @PutMapping("/user/{id}/password")
+    public ResponseVO changeUserPassword(@PathVariable Long id, @RequestParam String oldPassword,
+                                         @RequestParam String newPassword) throws BusinessException{
+
+        userService.changeUserPassword(id, oldPassword, newPassword);
+        return ResponseVO.buildSuccess("修改用户密码成功", null);
     }
 
 }

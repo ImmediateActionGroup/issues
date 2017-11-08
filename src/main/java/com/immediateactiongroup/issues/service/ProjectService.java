@@ -12,6 +12,32 @@ import com.immediateactiongroup.issues.dto.ProjectUpdateDTO;
  */
 public interface ProjectService {
     /**
+     * query a single project by id
+     * if the project is not exist return null
+     * @param id
+     * @return
+     * @throws BusinessException
+     */
+    ProjectDTO querySingleById(Long id) throws BusinessException;
+
+    /**
+     * query a single project by name
+     * if the project is not exist return null
+     * @param name
+     * @return
+     * @throws BusinessException
+     */
+    ProjectDTO querySingleByName(String name) throws BusinessException;
+
+    /**
+     * query a single project by key
+     * if the project is not exist return null
+     * @param key
+     * @return
+     * @throws BusinessException
+     */
+    ProjectDTO querySingleByKey(String key) throws BusinessException;
+    /**
      * 添加project
      * @param projectAddDTO
      * @return

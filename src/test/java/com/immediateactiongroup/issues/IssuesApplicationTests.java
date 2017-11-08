@@ -15,7 +15,7 @@ public class IssuesApplicationTests {
 	private SprintService sprintService;
 	@Test
 	public void contextLoads() {
-        sprintService.queryById(1L);
+        sprintService.queryAllByProjectId(1L);
 	}
 
 }

@@ -48,4 +48,12 @@ public class JwtUtilsTest {
         System.out.println(new String(decodeKey, "utf-8"));
     }
 
+    public void test1(){
+
+    }
+
+}
+
+class Demo{
+    private  int hash;
 }

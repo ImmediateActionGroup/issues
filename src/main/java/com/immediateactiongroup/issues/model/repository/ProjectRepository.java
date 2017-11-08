@@ -9,4 +9,6 @@ import org.springframework.data.repository.CrudRepository;
 public interface ProjectRepository extends CrudRepository<Project, Long>{
 
     Project findByNameAndProjectKey(String name, String key);
+
+    Project findByName(String name);
 }

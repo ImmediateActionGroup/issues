@@ -11,14 +11,14 @@ public interface SprintService {
     /**
      * 查询某个项目下所有的Sprint
      * @param projectId
-     * @return
+     * @return 返回该项目下所有的sprint
      */
     List<SprintDTO> queryAllByProjectId(Long projectId);
 
     /**
-     * 根据ID查询Sprint
+     * 根据id查询Sprint
      * @param sprintId
      * @return
      */
-    SprintDTO queryById(Long sprintId);
+    SprintDTO querySingleById(Long sprintId);
 }

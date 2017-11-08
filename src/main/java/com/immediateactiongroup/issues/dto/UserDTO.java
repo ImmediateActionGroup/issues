@@ -1,12 +1,19 @@
 package com.immediateactiongroup.issues.dto;
 
 import com.immediateactiongroup.issues.model.User;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 
 import java.util.Date;
 
 /**
  * Created by beishan on 2017/6/29.
+ * 用户信息DTO类
  */
+@Data
+@AllArgsConstructor
+@Builder
 public class UserDTO {
     private Long id;
     private String nickname;
@@ -16,6 +23,12 @@ public class UserDTO {
     private Date lastModifyTime;
     private Date lastLoginTime;
 
+    public static UserDTO build(Long id, String nickname,
+                                String username, int enable, Date createTime,
+                                Date  lastModifyTime, Date lastLoginTime){
+        return new UserDTO(id, nickname, username, enable, createTime, lastModifyTime, lastLoginTime);
+    }
+
     public UserDTO(User user){
         this.createTime = user.getCreateTime();
         this.lastLoginTime = user.getLastLoginTime();
@@ -24,74 +37,5 @@ public class UserDTO {
         this.id = user.getId();
         this.nickname = user.getNickname();
         this.username = user.getUsername();
-    }
-
-    @Override
-    public String toString() {
-        return "UserDTO{" +
-                "id=" + id +
-                ", nickname='" + nickname + '\'' +
-                ", username='" + username + '\'' +
-                ", enable=" + enable +
-                ", createTime=" + createTime +
-                ", lastModifyTime=" + lastModifyTime +
-                ", lastLoginTime=" + lastLoginTime +
-                '}';
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public int getEnable() {
-        return enable;
-    }
-
-    public void setEnable(int enable) {
-        this.enable = enable;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getLastModifyTime() {
-        return lastModifyTime;
-    }
-
-    public void setLastModifyTime(Date lastModifyTime) {
-        this.lastModifyTime = lastModifyTime;
-    }
-
-    public Date getLastLoginTime() {
-        return lastLoginTime;
-    }
-
-    public void setLastLoginTime(Date lastLoginTime) {
-        this.lastLoginTime = lastLoginTime;
     }
 }

@@ -23,6 +23,31 @@ public class ProjectUserServiceImpl  implements ProjectUserService {
     private ProjectUserRepository projectUserRepository;
 
     @Override
+    public void disableMemberInProject(Long memberId) throws BusinessException {
+
+    }
+
+    @Override
+    public void enableMemberInProject(Long memberId) throws BusinessException {
+
+    }
+
+    @Override
+    public void changeMemberRoleInProject(Long memberId, ProjectRoleEnum newRole) throws BusinessException {
+
+    }
+
+    @Override
+    public void removeMemberFromProject(Long memberId) throws BusinessException {
+
+    }
+
+    @Override
+    public void removeMembersFromProject() throws BusinessException {
+
+    }
+
+    @Override
     public void addMemberToProject(Long projectId, Long userId, ProjectRoleEnum role) throws BusinessException {
         ProjectUser projectUser = projectUserRepository.findByProjectIdAndUserId(projectId, userId);
 

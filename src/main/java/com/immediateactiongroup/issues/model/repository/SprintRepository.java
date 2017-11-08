@@ -8,4 +8,6 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface SprintRepository extends CrudRepository<Sprint, Long>{
     Iterable<Sprint> findAllById(Long id);
+
+    Iterable<Sprint> findAllByProjectId(Long projectId);
 }

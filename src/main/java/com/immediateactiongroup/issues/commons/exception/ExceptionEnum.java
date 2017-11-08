@@ -8,6 +8,7 @@ public enum ExceptionEnum {
 
     // user
     USER_NOT_EXIST("10020001", "用户不存在"),
+    USER_IS_EXIST("10020002", "用户已经存在"),
 
     USER_OLDPWD_ERROR("10030002", "输入的旧密码不正确"),
 

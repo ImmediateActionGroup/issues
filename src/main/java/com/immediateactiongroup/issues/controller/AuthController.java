@@ -22,6 +22,11 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
+    /**
+     * 用户登陆授权接口
+     * @param userLoginDTO 登陆参数（用户名/密码）
+     * @return 用户授权得到的Token
+     */
     @PostMapping("/session")
     public ResponseVO getAuthToken(@RequestBody UserLoginDTO userLoginDTO){
         System.out.println(userLoginDTO);
@@ -30,6 +35,11 @@ public class AuthController {
         return ResponseVO.buildSuccess(tokenVO);
     }
 
+    /**
+     * 用户注册接口
+     * @param userAddDTO 注册参数
+     * @return 注册成功后的用户信息
+     */
     @PostMapping("/user")
     public ResponseVO register(@RequestBody UserAddDTO userAddDTO){
         System.out.println(userAddDTO);
