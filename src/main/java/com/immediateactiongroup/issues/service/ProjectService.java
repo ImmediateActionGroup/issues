@@ -69,11 +69,15 @@ public interface ProjectService {
     void addSingleMemberToProject(Long projectId, Long userId, ProjectRoleEnum role) throws BusinessException;
 
     /**
-     * 添加多个成员
+     * 批量添加成员
      * @throws BusinessException
      */
-    void addMembersToProject() throws BusinessException;
+    void addMembersToProject(Long projectId, ProjectRoleEnum role, Long ... ids) throws BusinessException;
 
+    /**
+     * 移除项目成员
+     * @throws BusinessException
+     */
     void removeMemberFromProject() throws BusinessException;
 
 }

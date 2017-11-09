@@ -1,5 +1,8 @@
 package com.immediateactiongroup.issues.model;
 
+import lombok.Data;
+import lombok.ToString;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,6 +12,7 @@ import java.util.List;
  * Created by beishan on 2017/6/17.
  */
 @Entity
+@ToString
 public class Project {
 
     @Id

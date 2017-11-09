@@ -9,11 +9,13 @@ import com.immediateactiongroup.issues.dto.validate.UserUpdateDTO;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @Author xueshan.wei@mljr.com
  * @Date 2017/9/4 上午11:04
  */
+@Transactional
 public class UserServiceTest extends IssuesApplicationTests {
     @Autowired
     private UserService userService;
