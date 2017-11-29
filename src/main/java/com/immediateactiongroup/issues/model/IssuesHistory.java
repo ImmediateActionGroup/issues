@@ -1,36 +1,27 @@
 package com.immediateactiongroup.issues.model;
 
-import javax.persistence.*;
-import java.util.Date;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
-/**
- * Created by beishan on 2017/6/27.
- */
-@Entity
+import java.util.Date;
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class IssuesHistory {
-    @Id
-    @GeneratedValue
     private Long id;
 
-    private String event;
-    private Date time;
+    private String eventValue;
 
-    @ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    private Issues issues;
+    private String eventName;
 
-    @ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    private User operater;
+    private Long operaterId;
 
-    @Override
-    public String toString() {
-        return "IssuesHistory{" +
-                "id=" + id +
-                ", event='" + event + '\'' +
-                ", time=" + time +
-                ", issues=" + issues +
-                ", operater=" + operater +
-                '}';
-    }
+    private Byte deleteFlag;
+
+    private Date lastModifyTime;
+
+    private Date createTime;
 
     public Long getId() {
         return id;
@@ -40,35 +31,51 @@ public class IssuesHistory {
         this.id = id;
     }
 
-    public String getEvent() {
-        return event;
+    public String getEventValue() {
+        return eventValue;
     }
 
-    public void setEvent(String event) {
-        this.event = event;
+    public void setEventValue(String eventValue) {
+        this.eventValue = eventValue == null ? null : eventValue.trim();
     }
 
-    public Date getTime() {
-        return time;
+    public String getEventName() {
+        return eventName;
     }
 
-    public void setTime(Date time) {
-        this.time = time;
+    public void setEventName(String eventName) {
+        this.eventName = eventName == null ? null : eventName.trim();
     }
 
-    public Issues getIssues() {
-        return issues;
+    public Long getOperaterId() {
+        return operaterId;
     }
 
-    public void setIssues(Issues issues) {
-        this.issues = issues;
+    public void setOperaterId(Long operaterId) {
+        this.operaterId = operaterId;
     }
 
-    public User getOperater() {
-        return operater;
+    public Byte getDeleteFlag() {
+        return deleteFlag;
     }
 
-    public void setOperater(User operater) {
-        this.operater = operater;
+    public void setDeleteFlag(Byte deleteFlag) {
+        this.deleteFlag = deleteFlag;
+    }
+
+    public Date getLastModifyTime() {
+        return lastModifyTime;
+    }
+
+    public void setLastModifyTime(Date lastModifyTime) {
+        this.lastModifyTime = lastModifyTime;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

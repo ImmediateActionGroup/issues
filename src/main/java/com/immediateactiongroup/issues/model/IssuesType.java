@@ -1,24 +1,19 @@
 package com.immediateactiongroup.issues.model;
 
-import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
 import java.util.Date;
-
-/**
- * Created by beishan on 2017/6/17.
- */
-@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class IssuesType {
-    @Id
-    @GeneratedValue
     private Long id;
-    private String name;
-    private String icon;
 
-    @ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    private Project project;
+    private Date lastModifyTime;
 
     private Date createTime;
-    private Date lastModifyTime;
 
     public Long getId() {
         return id;
@@ -28,28 +23,12 @@ public class IssuesType {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Date getLastModifyTime() {
+        return lastModifyTime;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getIcon() {
-        return icon;
-    }
-
-    public void setIcon(String icon) {
-        this.icon = icon;
-    }
-
-    public Project getProject() {
-        return project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
+    public void setLastModifyTime(Date lastModifyTime) {
+        this.lastModifyTime = lastModifyTime;
     }
 
     public Date getCreateTime() {
@@ -58,13 +37,5 @@ public class IssuesType {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
-    }
-
-    public Date getLastModifyTime() {
-        return lastModifyTime;
-    }
-
-    public void setLastModifyTime(Date lastModifyTime) {
-        this.lastModifyTime = lastModifyTime;
     }
 }

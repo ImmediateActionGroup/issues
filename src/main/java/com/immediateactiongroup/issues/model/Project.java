@@ -1,48 +1,31 @@
 package com.immediateactiongroup.issues.model;
 
-import lombok.Data;
-import lombok.ToString;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
-/**
- * Created by beishan on 2017/6/17.
- */
-@Entity
-@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Project {
+    private Long id;
 
-    @Id
-    @GeneratedValue
-    private Long                id;
-    private String              name;
-    private String              projectKey;
-    private String              description;
-    private Date                createTime;
-    private Date                lastModifyTime;
+    private String name;
 
-    @ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    private User                creater;
+    private String description;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "project_user", joinColumns = {@JoinColumn(name = "project_id")},
-            inverseJoinColumns = {@JoinColumn(name = "user_id")})
-    private List<User> members = new ArrayList<>();
+    private String projectKey;
 
-    @OneToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY, mappedBy = "project")
-    private List<Label> labels = new ArrayList<>();
+    private Long ownerId;
 
-    @OneToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY, mappedBy = "projectb")
-    private List<Issues> issuesList = new ArrayList<>();
+    private Byte deleteFlag;
 
-    @OneToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY, mappedBy = "project")
-    private List<IssuesType> issuesTypes = new ArrayList<>();
+    private Long createrId;
 
-    @OneToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY, mappedBy = "project")
-    private List<Sprint> sprints = new ArrayList<>();
+    private Date lastModifyTime;
+
+    private Date createTime;
 
     public Long getId() {
         return id;
@@ -57,15 +40,7 @@ public class Project {
     }
 
     public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getProjectKey() {
-        return projectKey;
-    }
-
-    public void setProjectKey(String projectKey) {
-        this.projectKey = projectKey;
+        this.name = name == null ? null : name.trim();
     }
 
     public String getDescription() {
@@ -73,15 +48,39 @@ public class Project {
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.description = description == null ? null : description.trim();
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public String getProjectKey() {
+        return projectKey;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setProjectKey(String projectKey) {
+        this.projectKey = projectKey == null ? null : projectKey.trim();
+    }
+
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public Byte getDeleteFlag() {
+        return deleteFlag;
+    }
+
+    public void setDeleteFlag(Byte deleteFlag) {
+        this.deleteFlag = deleteFlag;
+    }
+
+    public Long getCreaterId() {
+        return createrId;
+    }
+
+    public void setCreaterId(Long createrId) {
+        this.createrId = createrId;
     }
 
     public Date getLastModifyTime() {
@@ -92,51 +91,11 @@ public class Project {
         this.lastModifyTime = lastModifyTime;
     }
 
-    public User getCreater() {
-        return creater;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreater(User creater) {
-        this.creater = creater;
-    }
-
-    public List<User> getMembers() {
-        return members;
-    }
-
-    public void setMembers(List<User> members) {
-        this.members = members;
-    }
-
-    public List<Label> getLabels() {
-        return labels;
-    }
-
-    public void setLabels(List<Label> labels) {
-        this.labels = labels;
-    }
-
-    public List<Issues> getIssuesList() {
-        return issuesList;
-    }
-
-    public void setIssuesList(List<Issues> issuesList) {
-        this.issuesList = issuesList;
-    }
-
-    public List<IssuesType> getIssuesTypes() {
-        return issuesTypes;
-    }
-
-    public void setIssuesTypes(List<IssuesType> issuesTypes) {
-        this.issuesTypes = issuesTypes;
-    }
-
-    public List<Sprint> getSprints() {
-        return sprints;
-    }
-
-    public void setSprints(List<Sprint> sprints) {
-        this.sprints = sprints;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

@@ -8,14 +8,12 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ProjectUser {
+public class IssuesLabel {
     private Long id;
 
-    private Long projectId;
+    private Long issuesId;
 
-    private Long userId;
-
-    private Integer role;
+    private Long labelId;
 
     private Date lastModifyTime;
 
@@ -29,28 +27,20 @@ public class ProjectUser {
         this.id = id;
     }
 
-    public Long getProjectId() {
-        return projectId;
+    public Long getIssuesId() {
+        return issuesId;
     }
 
-    public void setProjectId(Long projectId) {
-        this.projectId = projectId;
+    public void setIssuesId(Long issuesId) {
+        this.issuesId = issuesId;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getLabelId() {
+        return labelId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Integer getRole() {
-        return role;
-    }
-
-    public void setRole(Integer role) {
-        this.role = role;
+    public void setLabelId(Long labelId) {
+        this.labelId = labelId;
     }
 
     public Date getLastModifyTime() {

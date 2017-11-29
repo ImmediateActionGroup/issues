@@ -1,24 +1,23 @@
 package com.immediateactiongroup.issues.model;
 
-import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
-/**
- * Created by beishan on 2017/6/24.
- */
-@Entity
-@Table(name = "sprint_issues")
+import java.util.Date;
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class SprintIssues {
-    @Id
-    @GeneratedValue
     private Long id;
 
-    @ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "sprint_id")
-    private Sprint sprint;
+    private Long sprintId;
 
-    @ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "issues_id")
-    private Issues issues;
+    private Long issuesId;
+
+    private Date lastModifyTime;
+
+    private Date createTime;
 
     public Long getId() {
         return id;
@@ -28,19 +27,35 @@ public class SprintIssues {
         this.id = id;
     }
 
-    public Sprint getSprint() {
-        return sprint;
+    public Long getSprintId() {
+        return sprintId;
     }
 
-    public void setSprint(Sprint sprint) {
-        this.sprint = sprint;
+    public void setSprintId(Long sprintId) {
+        this.sprintId = sprintId;
     }
 
-    public Issues getIssues() {
-        return issues;
+    public Long getIssuesId() {
+        return issuesId;
     }
 
-    public void setIssues(Issues issues) {
-        this.issues = issues;
+    public void setIssuesId(Long issuesId) {
+        this.issuesId = issuesId;
+    }
+
+    public Date getLastModifyTime() {
+        return lastModifyTime;
+    }
+
+    public void setLastModifyTime(Date lastModifyTime) {
+        this.lastModifyTime = lastModifyTime;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

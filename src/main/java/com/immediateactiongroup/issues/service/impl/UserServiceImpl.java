@@ -7,6 +7,8 @@ import com.immediateactiongroup.issues.dto.UserDTO;
 import com.immediateactiongroup.issues.dto.validate.UserUpdateDTO;
 import com.immediateactiongroup.issues.model.Role;
 import com.immediateactiongroup.issues.model.User;
+import com.immediateactiongroup.issues.model.dao.RoleMapper;
+import com.immediateactiongroup.issues.model.dao.UserMapper;
 import com.immediateactiongroup.issues.model.repository.RoleRepository;
 import com.immediateactiongroup.issues.model.repository.UserRepository;
 import com.immediateactiongroup.issues.service.UserService;
@@ -33,14 +35,14 @@ public class UserServiceImpl implements UserService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
     @Autowired
-    private UserRepository userRepository;
+    private UserMapper userMapper;
 
     @Autowired
-    private RoleRepository roleRepository;
+    private RoleMapper roleMapper;
 
     @Override
     public UserDTO querySingleUserById(Long userId) {
-       User user = userRepository.findById(userId);
+       User user = userMapper.selectByPrimaryKey(userId);
         if(Objects.isNull(user)){
             return null;
         }

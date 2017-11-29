@@ -1,34 +1,31 @@
 package com.immediateactiongroup.issues.model;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
-/**
- * Created by beishan on 2017/6/17.
- */
-@Entity
+import java.util.Date;
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Sprint {
-    @Id
-    @GeneratedValue
     private Long id;
+
     private String name;
 
+    private Byte status;
+
+    private Long projectId;
+
     private Date beginTime;
+
     private Date endTime;
-    private Date createTime;
+
+    private Byte deleteFlag;
+
     private Date lastModifyTime;
 
-    private int status; //sprint 状态
-
-    @ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    private Project project;
-
-    @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    @JoinTable(name = "sprint_issues", joinColumns = {@JoinColumn(name = "sprint_id")},
-            inverseJoinColumns = {@JoinColumn(name = "issues_id")})
-    private List<Issues> issuesList = new ArrayList<>();
+    private Date createTime;
 
     public Long getId() {
         return id;
@@ -43,7 +40,23 @@ public class Sprint {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name == null ? null : name.trim();
+    }
+
+    public Byte getStatus() {
+        return status;
+    }
+
+    public void setStatus(Byte status) {
+        this.status = status;
+    }
+
+    public Long getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
     }
 
     public Date getBeginTime() {
@@ -62,12 +75,12 @@ public class Sprint {
         this.endTime = endTime;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Byte getDeleteFlag() {
+        return deleteFlag;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setDeleteFlag(Byte deleteFlag) {
+        this.deleteFlag = deleteFlag;
     }
 
     public Date getLastModifyTime() {
@@ -78,27 +91,11 @@ public class Sprint {
         this.lastModifyTime = lastModifyTime;
     }
 
-    public Project getProject() {
-        return project;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setProject(Project project) {
-        this.project = project;
-    }
-
-    public List<Issues> getIssuesList() {
-        return issuesList;
-    }
-
-    public void setIssuesList(List<Issues> issuesList) {
-        this.issuesList = issuesList;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }
