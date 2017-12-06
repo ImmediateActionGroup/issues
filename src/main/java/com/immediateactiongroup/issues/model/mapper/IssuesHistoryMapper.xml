@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.immediateactiongroup.issues.model.dao.IssuesHistoryMapper">
+  <resultMap id="BaseResultMap" type="com.immediateactiongroup.issues.model.IssuesHistory">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="event_value" jdbcType="VARCHAR" property="eventValue" />
+    <result column="event_name" jdbcType="VARCHAR" property="eventName" />
+    <result column="operater_id" jdbcType="BIGINT" property="operaterId" />
+    <result column="delete_flag" jdbcType="TINYINT" property="deleteFlag" />
+    <result column="last_modify_time" jdbcType="TIMESTAMP" property="lastModifyTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, event_value, event_name, operater_id, delete_flag, last_modify_time, create_time
+  </sql>
+  <select id="selectByExample" parameterType="com.immediateactiongroup.issues.model.IssuesHistoryExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from issues_history
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from issues_history
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from issues_history
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.immediateactiongroup.issues.model.IssuesHistoryExample">
+    delete from issues_history
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.immediateactiongroup.issues.model.IssuesHistory">
+    insert into issues_history (id, event_value, event_name, 
+      operater_id, delete_flag, last_modify_time, 
+      create_time)
+    values (#{id,jdbcType=BIGINT}, #{eventValue,jdbcType=VARCHAR}, #{eventName,jdbcType=VARCHAR}, 
+      #{operaterId,jdbcType=BIGINT}, #{deleteFlag,jdbcType=TINYINT}, #{lastModifyTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.immediateactiongroup.issues.model.IssuesHistory">
+    insert into issues_history
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="eventValue != null">
+        event_value,
+      </if>
+      <if test="eventName != null">
+        event_name,
+      </if>
+      <if test="operaterId != null">
+        operater_id,
+      </if>
+      <if test="deleteFlag != null">
+        delete_flag,
+      </if>
+      <if test="lastModifyTime != null">
+        last_modify_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="eventValue != null">
+        #{eventValue,jdbcType=VARCHAR},
+      </if>
+      <if test="eventName != null">
+        #{eventName,jdbcType=VARCHAR},
+      </if>
+      <if test="operaterId != null">
+        #{operaterId,jdbcType=BIGINT},
+      </if>
+      <if test="deleteFlag != null">
+        #{deleteFlag,jdbcType=TINYINT},
+      </if>
+      <if test="lastModifyTime != null">
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.immediateactiongroup.issues.model.IssuesHistoryExample" resultType="java.lang.Long">
+    select count(*) from issues_history
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update issues_history
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.eventValue != null">
+        event_value = #{record.eventValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eventName != null">
+        event_name = #{record.eventName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operaterId != null">
+        operater_id = #{record.operaterId,jdbcType=BIGINT},
+      </if>
+      <if test="record.deleteFlag != null">
+        delete_flag = #{record.deleteFlag,jdbcType=TINYINT},
+      </if>
+      <if test="record.lastModifyTime != null">
+        last_modify_time = #{record.lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update issues_history
+    set id = #{record.id,jdbcType=BIGINT},
+      event_value = #{record.eventValue,jdbcType=VARCHAR},
+      event_name = #{record.eventName,jdbcType=VARCHAR},
+      operater_id = #{record.operaterId,jdbcType=BIGINT},
+      delete_flag = #{record.deleteFlag,jdbcType=TINYINT},
+      last_modify_time = #{record.lastModifyTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.immediateactiongroup.issues.model.IssuesHistory">
+    update issues_history
+    <set>
+      <if test="eventValue != null">
+        event_value = #{eventValue,jdbcType=VARCHAR},
+      </if>
+      <if test="eventName != null">
+        event_name = #{eventName,jdbcType=VARCHAR},
+      </if>
+      <if test="operaterId != null">
+        operater_id = #{operaterId,jdbcType=BIGINT},
+      </if>
+      <if test="deleteFlag != null">
+        delete_flag = #{deleteFlag,jdbcType=TINYINT},
+      </if>
+      <if test="lastModifyTime != null">
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.immediateactiongroup.issues.model.IssuesHistory">
+    update issues_history
+    set event_value = #{eventValue,jdbcType=VARCHAR},
+      event_name = #{eventName,jdbcType=VARCHAR},
+      operater_id = #{operaterId,jdbcType=BIGINT},
+      delete_flag = #{deleteFlag,jdbcType=TINYINT},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

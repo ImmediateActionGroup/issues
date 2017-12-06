@@ -33,7 +33,7 @@ public class UserDTO {
         this.createTime = user.getCreateTime();
         this.lastLoginTime = user.getLastLoginTime();
         this.lastModifyTime = user.getLastModifyTime();
-        this.enable = user.getEnable();
+        //this.enable = user.getEnable();
         this.id = user.getId();
         this.nickname = user.getNickname();
         this.username = user.getUsername();

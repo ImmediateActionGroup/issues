@@ -1,22 +1,25 @@
 package com.immediateactiongroup.issues.model;
 
-import javax.persistence.*;
-import java.util.Date;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
-/**
- * Created by beishan on 2017/6/17.
- */
-@Entity
+import java.util.Date;
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Label {
-    @Id
-    @GeneratedValue
     private Long id;
+
     private String name;
-    private Date createTime;
+
+    private Long projectId;
+
+    private Byte systemFlag;
+
     private Date lastModifyTime;
 
-    @ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    private Project project;
+    private Date createTime;
 
     public Long getId() {
         return id;
@@ -31,15 +34,23 @@ public class Label {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name == null ? null : name.trim();
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Long getProjectId() {
+        return projectId;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
+    }
+
+    public Byte getSystemFlag() {
+        return systemFlag;
+    }
+
+    public void setSystemFlag(Byte systemFlag) {
+        this.systemFlag = systemFlag;
     }
 
     public Date getLastModifyTime() {
@@ -50,11 +61,11 @@ public class Label {
         this.lastModifyTime = lastModifyTime;
     }
 
-    public Project getProject() {
-        return project;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setProject(Project project) {
-        this.project = project;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

@@ -5,7 +5,10 @@ package com.immediateactiongroup.issues.commons.exception;
  * @Date 2017/9/3 上午10:20
  */
 public enum ExceptionEnum {
-
+    /**
+     * role
+     */
+    ROLE_NOT_EXIST("10010001", "角色不存在"),
     // user
     USER_NOT_EXIST("10020001", "用户不存在"),
     USER_IS_EXIST("10020002", "用户已经存在"),

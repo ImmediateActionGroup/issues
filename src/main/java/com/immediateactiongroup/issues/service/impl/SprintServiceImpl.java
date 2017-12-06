@@ -1,10 +1,8 @@
 package com.immediateactiongroup.issues.service.impl;
 
 import com.immediateactiongroup.issues.dto.SprintDTO;
-import com.immediateactiongroup.issues.model.repository.SprintRepository;
 import com.immediateactiongroup.issues.service.SprintService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,9 +15,6 @@ import java.util.List;
 @Service
 @Slf4j
 public class SprintServiceImpl implements SprintService {
-    @Autowired
-    private SprintRepository sprintRepository;
-
     @Override
     public List<SprintDTO> queryAllByProjectId(Long projectId) {
         // TODO: 2017/11/8  

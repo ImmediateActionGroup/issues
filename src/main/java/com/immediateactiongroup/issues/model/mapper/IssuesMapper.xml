@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.immediateactiongroup.issues.model.dao.IssuesMapper">
+  <resultMap id="BaseResultMap" type="com.immediateactiongroup.issues.model.Issues">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="story_point" jdbcType="VARCHAR" property="storyPoint" />
+    <result column="priority" jdbcType="INTEGER" property="priority" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="assigner_id" jdbcType="BIGINT" property="assignerId" />
+    <result column="assigned_user_id" jdbcType="BIGINT" property="assignedUserId" />
+    <result column="creater_id" jdbcType="BIGINT" property="createrId" />
+    <result column="reporter_id" jdbcType="BIGINT" property="reporterId" />
+    <result column="project_id" jdbcType="BIGINT" property="projectId" />
+    <result column="delete_flag" jdbcType="TINYINT" property="deleteFlag" />
+    <result column="last_modify_time" jdbcType="TIMESTAMP" property="lastModifyTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, status, title, story_point, priority, description, assigner_id, assigned_user_id, 
+    creater_id, reporter_id, project_id, delete_flag, last_modify_time, create_time
+  </sql>
+  <select id="selectByExample" parameterType="com.immediateactiongroup.issues.model.IssuesExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from issues
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from issues
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from issues
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.immediateactiongroup.issues.model.IssuesExample">
+    delete from issues
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.immediateactiongroup.issues.model.Issues">
+    insert into issues (id, status, title, 
+      story_point, priority, description, 
+      assigner_id, assigned_user_id, creater_id, 
+      reporter_id, project_id, delete_flag, 
+      last_modify_time, create_time)
+    values (#{id,jdbcType=BIGINT}, #{status,jdbcType=TINYINT}, #{title,jdbcType=VARCHAR}, 
+      #{storyPoint,jdbcType=VARCHAR}, #{priority,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, 
+      #{assignerId,jdbcType=BIGINT}, #{assignedUserId,jdbcType=BIGINT}, #{createrId,jdbcType=BIGINT}, 
+      #{reporterId,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{deleteFlag,jdbcType=TINYINT}, 
+      #{lastModifyTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.immediateactiongroup.issues.model.Issues">
+    insert into issues
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="storyPoint != null">
+        story_point,
+      </if>
+      <if test="priority != null">
+        priority,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="assignerId != null">
+        assigner_id,
+      </if>
+      <if test="assignedUserId != null">
+        assigned_user_id,
+      </if>
+      <if test="createrId != null">
+        creater_id,
+      </if>
+      <if test="reporterId != null">
+        reporter_id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="deleteFlag != null">
+        delete_flag,
+      </if>
+      <if test="lastModifyTime != null">
+        last_modify_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="storyPoint != null">
+        #{storyPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null">
+        #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="assignerId != null">
+        #{assignerId,jdbcType=BIGINT},
+      </if>
+      <if test="assignedUserId != null">
+        #{assignedUserId,jdbcType=BIGINT},
+      </if>
+      <if test="createrId != null">
+        #{createrId,jdbcType=BIGINT},
+      </if>
+      <if test="reporterId != null">
+        #{reporterId,jdbcType=BIGINT},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="deleteFlag != null">
+        #{deleteFlag,jdbcType=TINYINT},
+      </if>
+      <if test="lastModifyTime != null">
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.immediateactiongroup.issues.model.IssuesExample" resultType="java.lang.Long">
+    select count(*) from issues
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update issues
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=TINYINT},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storyPoint != null">
+        story_point = #{record.storyPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priority != null">
+        priority = #{record.priority,jdbcType=INTEGER},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.assignerId != null">
+        assigner_id = #{record.assignerId,jdbcType=BIGINT},
+      </if>
+      <if test="record.assignedUserId != null">
+        assigned_user_id = #{record.assignedUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.createrId != null">
+        creater_id = #{record.createrId,jdbcType=BIGINT},
+      </if>
+      <if test="record.reporterId != null">
+        reporter_id = #{record.reporterId,jdbcType=BIGINT},
+      </if>
+      <if test="record.projectId != null">
+        project_id = #{record.projectId,jdbcType=BIGINT},
+      </if>
+      <if test="record.deleteFlag != null">
+        delete_flag = #{record.deleteFlag,jdbcType=TINYINT},
+      </if>
+      <if test="record.lastModifyTime != null">
+        last_modify_time = #{record.lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update issues
+    set id = #{record.id,jdbcType=BIGINT},
+      status = #{record.status,jdbcType=TINYINT},
+      title = #{record.title,jdbcType=VARCHAR},
+      story_point = #{record.storyPoint,jdbcType=VARCHAR},
+      priority = #{record.priority,jdbcType=INTEGER},
+      description = #{record.description,jdbcType=VARCHAR},
+      assigner_id = #{record.assignerId,jdbcType=BIGINT},
+      assigned_user_id = #{record.assignedUserId,jdbcType=BIGINT},
+      creater_id = #{record.createrId,jdbcType=BIGINT},
+      reporter_id = #{record.reporterId,jdbcType=BIGINT},
+      project_id = #{record.projectId,jdbcType=BIGINT},
+      delete_flag = #{record.deleteFlag,jdbcType=TINYINT},
+      last_modify_time = #{record.lastModifyTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.immediateactiongroup.issues.model.Issues">
+    update issues
+    <set>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="storyPoint != null">
+        story_point = #{storyPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null">
+        priority = #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="assignerId != null">
+        assigner_id = #{assignerId,jdbcType=BIGINT},
+      </if>
+      <if test="assignedUserId != null">
+        assigned_user_id = #{assignedUserId,jdbcType=BIGINT},
+      </if>
+      <if test="createrId != null">
+        creater_id = #{createrId,jdbcType=BIGINT},
+      </if>
+      <if test="reporterId != null">
+        reporter_id = #{reporterId,jdbcType=BIGINT},
+      </if>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="deleteFlag != null">
+        delete_flag = #{deleteFlag,jdbcType=TINYINT},
+      </if>
+      <if test="lastModifyTime != null">
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.immediateactiongroup.issues.model.Issues">
+    update issues
+    set status = #{status,jdbcType=TINYINT},
+      title = #{title,jdbcType=VARCHAR},
+      story_point = #{storyPoint,jdbcType=VARCHAR},
+      priority = #{priority,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      assigner_id = #{assignerId,jdbcType=BIGINT},
+      assigned_user_id = #{assignedUserId,jdbcType=BIGINT},
+      creater_id = #{createrId,jdbcType=BIGINT},
+      reporter_id = #{reporterId,jdbcType=BIGINT},
+      project_id = #{projectId,jdbcType=BIGINT},
+      delete_flag = #{deleteFlag,jdbcType=TINYINT},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

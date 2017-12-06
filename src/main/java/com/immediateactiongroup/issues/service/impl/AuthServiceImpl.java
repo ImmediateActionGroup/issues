@@ -1,14 +1,16 @@
 package com.immediateactiongroup.issues.service.impl;
 
+import com.immediateactiongroup.issues.commons.enums.BizTagEnum;
+import com.immediateactiongroup.issues.commons.exception.BusinessException;
 import com.immediateactiongroup.issues.dto.UserDTO;
 import com.immediateactiongroup.issues.dto.validate.UserAddDTO;
-import com.immediateactiongroup.issues.model.Role;
-import com.immediateactiongroup.issues.model.User;
-import com.immediateactiongroup.issues.model.repository.RoleRepository;
-import com.immediateactiongroup.issues.model.repository.UserRepository;
 import com.immediateactiongroup.issues.security.JwtUser;
 import com.immediateactiongroup.issues.service.AuthService;
+import com.immediateactiongroup.issues.service.IdGenerateService;
+import com.immediateactiongroup.issues.service.RoleService;
+import com.immediateactiongroup.issues.service.UserService;
 import com.immediateactiongroup.issues.utils.JwtUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,13 +20,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
  * Created by beishan on 2017/9/2.
  */
 @Service
+@Slf4j
 public class AuthServiceImpl implements AuthService {
 
     @Value("${jwt.tokenHead}")
@@ -36,23 +38,25 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
     @Autowired
-    private RoleRepository roleRepository;
+    private RoleService roleService;
+    @Autowired
+    private IdGenerateService idGenerateService;
 
+    private Long generateId(){
+        return idGenerateService.generateId(BizTagEnum.USER);
+    }
     @Override
-    public UserDTO register(UserAddDTO userAddDTO) {
-        final String username = userAddDTO.getUsername();
-        if(userRepository.findByUsername(username) != null){
-            return null;
+    public UserDTO register(UserAddDTO userAddDTO){
+        UserDTO userDTO = null;
+        try {
+            userDTO = userService.addUser(userAddDTO);
+        } catch (BusinessException e) {
+            log.error("register 用户出错, {}", userAddDTO.toString());
+            userDTO = null;
         }
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        final String rawPassword = userAddDTO.getPassword();
-        final String encodePwd = encoder.encode(rawPassword);
-
-        Role role = roleRepository.findByName("ROLE_USER");
-        User newUser = userRepository.save(new User(username, encodePwd, role));
-        return new UserDTO(newUser);
+        return userDTO;
     }
 
     @Override

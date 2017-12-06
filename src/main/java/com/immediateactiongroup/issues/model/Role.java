@@ -1,27 +1,21 @@
 package com.immediateactiongroup.issues.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
-/**
- * Created by beishan on 2017/6/17.
- */
-@Entity
+import java.util.Date;
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Role {
-    @Id
-    @GeneratedValue
     private Long id;
 
     private String name;
 
-    @Override
-    public String toString() {
-        return "Role{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
+    private Date lastModifyTime;
+
+    private Date createTime;
 
     public Long getId() {
         return id;
@@ -36,6 +30,22 @@ public class Role {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name == null ? null : name.trim();
+    }
+
+    public Date getLastModifyTime() {
+        return lastModifyTime;
+    }
+
+    public void setLastModifyTime(Date lastModifyTime) {
+        this.lastModifyTime = lastModifyTime;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }
