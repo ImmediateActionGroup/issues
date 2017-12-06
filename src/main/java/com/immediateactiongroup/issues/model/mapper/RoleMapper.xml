@@ -74,6 +74,16 @@
     role
     where name = #{name}
   </select>
+
+  <select id="count" resultType="java.lang.Integer">
+    SELECT COUNT(1) FROM role
+  </select>
+  <select id="selectByIds" resultMap="BaseResultMap">
+    select * from role where id in
+    <foreach collection="array" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
   <select id="selectByExample" parameterType="com.immediateactiongroup.issues.model.RoleExample" resultMap="BaseResultMap">
     select
     <if test="distinct">

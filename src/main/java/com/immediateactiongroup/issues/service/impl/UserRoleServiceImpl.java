@@ -5,7 +5,9 @@ import com.immediateactiongroup.issues.commons.enums.UserRoleEnum;
 import com.immediateactiongroup.issues.commons.exception.BusinessException;
 import com.immediateactiongroup.issues.commons.exception.ExceptionEnum;
 import com.immediateactiongroup.issues.model.Role;
+import com.immediateactiongroup.issues.model.RoleExample;
 import com.immediateactiongroup.issues.model.UserRoles;
+import com.immediateactiongroup.issues.model.UserRolesExample;
 import com.immediateactiongroup.issues.model.dao.UserRolesMapper;
 import com.immediateactiongroup.issues.service.IdGenerateService;
 import com.immediateactiongroup.issues.service.RoleService;
@@ -16,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -51,5 +54,14 @@ public class UserRoleServiceImpl extends BaseService implements UserRoleService 
                 .lastModifyTime(now)
                 .build();
         userRolesMapper.insert(userRoles);
+    }
+
+    @Override
+    public List<UserRoles> queryRolesByUserId(Long userId) {
+
+        UserRolesExample userRolesExample = new UserRolesExample();
+        UserRolesExample.Criteria criteria = userRolesExample.createCriteria();
+        criteria.andUserIdEqualTo(userId);
+        return userRolesMapper.selectByExample(userRolesExample);
     }
 }

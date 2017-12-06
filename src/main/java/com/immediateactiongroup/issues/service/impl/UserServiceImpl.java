@@ -8,8 +8,11 @@ import com.immediateactiongroup.issues.commons.exception.ExceptionEnum;
 import com.immediateactiongroup.issues.dto.UserDTO;
 import com.immediateactiongroup.issues.dto.validate.UserAddDTO;
 import com.immediateactiongroup.issues.dto.validate.UserUpdateDTO;
+import com.immediateactiongroup.issues.model.Role;
 import com.immediateactiongroup.issues.model.User;
+import com.immediateactiongroup.issues.model.UserRoles;
 import com.immediateactiongroup.issues.model.dao.UserMapper;
+import com.immediateactiongroup.issues.service.RoleService;
 import com.immediateactiongroup.issues.service.UserRoleService;
 import com.immediateactiongroup.issues.service.UserService;
 import com.immediateactiongroup.issues.utils.DateUtils;
@@ -38,6 +41,8 @@ public class UserServiceImpl extends BaseService implements UserService {
     private UserMapper userMapper;
     @Autowired
     private UserRoleService userRoleService;
+    @Autowired
+    private RoleService roleService;
 
     private Long generateId(){
         return this.generateId(BizTagEnum.USER);
@@ -61,6 +66,19 @@ public class UserServiceImpl extends BaseService implements UserService {
     @Override
     public User querySingleUser(String username) {
         return userMapper.selectByName(username);
+    }
+
+    @Override
+    public List<Role> queryUserRoles(Long userId) {
+        List<Role> roles = null;
+        List<UserRoles> userRoles = userRoleService.queryRolesByUserId(userId);
+        if(Objects.nonNull(userRoles)){
+            roles = new ArrayList<>();
+            for(UserRoles item : userRoles){
+                roles.add(roleService.queryById(item.getId()));
+            }
+        }
+        return roles;
     }
 
     @Override

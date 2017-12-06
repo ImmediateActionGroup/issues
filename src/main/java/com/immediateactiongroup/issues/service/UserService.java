@@ -5,6 +5,7 @@ import com.immediateactiongroup.issues.dto.AddUserDTO;
 import com.immediateactiongroup.issues.dto.UserDTO;
 import com.immediateactiongroup.issues.dto.validate.UserAddDTO;
 import com.immediateactiongroup.issues.dto.validate.UserUpdateDTO;
+import com.immediateactiongroup.issues.model.Role;
 import com.immediateactiongroup.issues.model.User;
 
 import java.util.List;
@@ -30,6 +31,8 @@ public interface UserService {
      * @return UserDTO or null (user not exist)
      */
     UserDTO querySingleUserByUsername(String username);
+
+    List<Role> queryUserRoles(Long userId);
 
     User querySingleUser(String username);
 
