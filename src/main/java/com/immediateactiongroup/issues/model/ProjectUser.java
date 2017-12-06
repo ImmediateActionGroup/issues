@@ -3,11 +3,13 @@ package com.immediateactiongroup.issues.model;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString
 public class ProjectUser {
     private Long id;
 

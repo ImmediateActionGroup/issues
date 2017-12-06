@@ -3,7 +3,9 @@ package com.immediateactiongroup.issues.service;
 import com.immediateactiongroup.issues.commons.exception.BusinessException;
 import com.immediateactiongroup.issues.dto.AddUserDTO;
 import com.immediateactiongroup.issues.dto.UserDTO;
+import com.immediateactiongroup.issues.dto.validate.UserAddDTO;
 import com.immediateactiongroup.issues.dto.validate.UserUpdateDTO;
+import com.immediateactiongroup.issues.model.User;
 
 import java.util.List;
 
@@ -29,12 +31,14 @@ public interface UserService {
      */
     UserDTO querySingleUserByUsername(String username);
 
+    User querySingleUser(String username);
+
     /**
      * 增加用户接口
      * @param addUserDTO 用户基本信息
      * @return 新增的用户
      */
-    UserDTO addUser(AddUserDTO addUserDTO) throws BusinessException;
+    UserDTO addUser(UserAddDTO addUserDTO) throws BusinessException;
 
     /**
      * 删除用户接口

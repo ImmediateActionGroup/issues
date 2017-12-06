@@ -78,6 +78,10 @@
     SELECT * FROM user
     WHERE username = #{username}
   </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    SELECT * FROM user ORDER BY create_time DESC 
+  </select>
   <select id="selectByExample" parameterType="com.immediateactiongroup.issues.model.UserExample" resultMap="BaseResultMap">
     select
     <if test="distinct">

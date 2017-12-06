@@ -1,16 +1,16 @@
 package com.immediateactiongroup.issues.service.impl;
 
+import com.immediateactiongroup.issues.commons.enums.BizTagEnum;
+import com.immediateactiongroup.issues.commons.enums.DeleteFlagEnum;
+import com.immediateactiongroup.issues.commons.enums.UserRoleEnum;
 import com.immediateactiongroup.issues.commons.exception.BusinessException;
 import com.immediateactiongroup.issues.commons.exception.ExceptionEnum;
-import com.immediateactiongroup.issues.dto.AddUserDTO;
 import com.immediateactiongroup.issues.dto.UserDTO;
+import com.immediateactiongroup.issues.dto.validate.UserAddDTO;
 import com.immediateactiongroup.issues.dto.validate.UserUpdateDTO;
-import com.immediateactiongroup.issues.model.Role;
 import com.immediateactiongroup.issues.model.User;
-import com.immediateactiongroup.issues.model.dao.RoleMapper;
 import com.immediateactiongroup.issues.model.dao.UserMapper;
-import com.immediateactiongroup.issues.model.repository.RoleRepository;
-import com.immediateactiongroup.issues.model.repository.UserRepository;
+import com.immediateactiongroup.issues.service.UserRoleService;
 import com.immediateactiongroup.issues.service.UserService;
 import com.immediateactiongroup.issues.utils.DateUtils;
 import com.immediateactiongroup.issues.utils.SecurityUtils;
@@ -22,6 +22,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,15 +32,16 @@ import java.util.Objects;
  */
 @Service("userService")
 @Slf4j
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends BaseService implements UserService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
     @Autowired
     private UserMapper userMapper;
-
     @Autowired
-    private RoleMapper roleMapper;
+    private UserRoleService userRoleService;
 
+    private Long generateId(){
+        return this.generateId(BizTagEnum.USER);
+    }
     @Override
     public UserDTO querySingleUserById(Long userId) {
        User user = userMapper.selectByPrimaryKey(userId);
@@ -50,7 +52,6 @@ public class UserServiceImpl implements UserService {
                .id(user.getId())
                .username(user.getUsername())
                .nickname(user.getNickname())
-               .enable(user.getEnable())
                .createTime(user.getCreateTime())
                .lastLoginTime(user.getLastLoginTime())
                .lastModifyTime(user.getLastModifyTime())
@@ -58,9 +59,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User querySingleUser(String username) {
+        return userMapper.selectByName(username);
+    }
+
+    @Override
     public UserDTO querySingleUserByUsername(String username) {
         // TODO: 2017/11/8 wheather validate the username
-        User user = userRepository.findByUsername(username);
+        User user = userMapper.selectByName(username);
         if(Objects.isNull(user)){
             return null;
         }
@@ -68,7 +74,6 @@ public class UserServiceImpl implements UserService {
                 .id(user.getId())
                 .username(user.getUsername())
                 .nickname(user.getNickname())
-                .enable(user.getEnable())
                 .createTime(user.getCreateTime())
                 .lastLoginTime(user.getLastLoginTime())
                 .lastModifyTime(user.getLastModifyTime())
@@ -77,7 +82,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void changeUserPassword(Long userId, String oldPassword, String newPassword) throws BusinessException {
-        User waitUpdateUser = userRepository.findById(userId);
+        User waitUpdateUser = userMapper.selectByPrimaryKey(userId);
 
         if(waitUpdateUser == null){
             throw new BusinessException(ExceptionEnum.USER_NOT_EXIST);
@@ -89,12 +94,12 @@ public class UserServiceImpl implements UserService {
             throw new BusinessException(ExceptionEnum.USER_OLDPWD_ERROR);
         }
         waitUpdateUser.setLastModifyTime(DateUtils.getNow());
-        userRepository.save(waitUpdateUser);
+        userMapper.updateByPrimaryKey(waitUpdateUser);
     }
 
     @Override
     public void changeUserPassword(Long userId, String newPassword) throws BusinessException {
-        User waitUpdateUser = userRepository.findById(userId);
+        User waitUpdateUser = userMapper.selectByPrimaryKey(userId);
 
         if(waitUpdateUser == null){
             throw new BusinessException(ExceptionEnum.USER_NOT_EXIST);
@@ -102,12 +107,12 @@ public class UserServiceImpl implements UserService {
 
         waitUpdateUser.setPassword(SecurityUtils.encode(newPassword));
         waitUpdateUser.setLastModifyTime(DateUtils.getNow());
-        userRepository.save(waitUpdateUser);
+        userMapper.updateByPrimaryKey(waitUpdateUser);
     }
 
     @Override
     public UserDTO updateUserInfo(UserUpdateDTO userUpdateDTO) throws BusinessException {
-        User waitUpdateUser = userRepository.findById(userUpdateDTO.getId());
+        User waitUpdateUser = userMapper.selectByPrimaryKey(userUpdateDTO.getId());
 
         if(waitUpdateUser == null){
             throw new BusinessException(ExceptionEnum.USER_NOT_EXIST);
@@ -115,19 +120,19 @@ public class UserServiceImpl implements UserService {
 
         waitUpdateUser.setNickname(userUpdateDTO.getNickname());
         waitUpdateUser.setLastModifyTime(DateUtils.getNow());
-        waitUpdateUser = userRepository.save(waitUpdateUser);
+        userMapper.updateByPrimaryKey(waitUpdateUser);
 
         return UserDTO.build(waitUpdateUser.getId(),
                 waitUpdateUser.getNickname(),
                 waitUpdateUser.getUsername(),
-                waitUpdateUser.getEnable(),
+                1,
                 waitUpdateUser.getCreateTime(),
                 waitUpdateUser.getLastModifyTime(),
                 waitUpdateUser.getLastLoginTime());
     }
 
     @Override
-    public UserDTO addUser(AddUserDTO addUserDTO) throws BusinessException{
+    public UserDTO addUser(UserAddDTO addUserDTO) throws BusinessException{
         // step1: check the username is repeat
         UserDTO existUser = querySingleUserByUsername(addUserDTO.getUsername());
         if(Objects.nonNull(existUser)){
@@ -137,10 +142,26 @@ public class UserServiceImpl implements UserService {
         // step2: 对密码进行加密操作
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         final String encodePwd = encoder.encode(addUserDTO.getPassword());
-        Role role = roleRepository.findByName(addUserDTO.getRoleEnum().name());
         // step3: add the user to database
-        User user = new User(addUserDTO.getUsername(), encodePwd, role);
-        user = userRepository.save(user);
+//        User user = new User(addUserDTO.getUsername(), encodePwd, role);
+        Long id = generateId();
+        Date now = DateUtils.getNow();
+        User user = User.builder()
+                .id(id)
+                .username(addUserDTO.getUsername())
+                .password(encodePwd)
+                .nickname("")
+                .deleteFlag(DeleteFlagEnum.DELETE_FALSE.getValue())
+                .lastModifyTime(now)
+                .createTime(now)
+                .build();
+        userMapper.insert(user);
+        /**
+         * 添加角色
+         */
+        UserRoleEnum roleEnum = UserRoleEnum.index(addUserDTO.getRole());
+        userRoleService.addUserRole(id, roleEnum);
+        log.info("创建用户成功, {}", user.toString());
         return new UserDTO(user);
     }
 
@@ -155,19 +176,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(Long id) throws BusinessException{
         //判断用户是否存在
-        Long userId = userRepository.existUserById(id);
+        userMapper.deleteByPrimaryKey(id);
+        /*User user = userMapper.selectByPrimaryKey(id);
         if(userId != null){
             LOGGER.info("删除用户 id 为" + id + " 用户存在，删除用户");
             userRepository.delete(id);
         }else {
             LOGGER.error("删除用户出错: id 为" + id + "的用户不存在，抛出异常");
             throw new BusinessException(ExceptionEnum.USER_NOT_EXIST);
-        }
+        }*/
     }
 
     @Override
     public List<UserDTO> queryAll() {
-        List<User> users = userRepository.findAll();
+        List<User> users = userMapper.selectAll();
         List<UserDTO> userDTOS = new ArrayList<>();
         for(User user : users){
             userDTOS.add(new UserDTO(user));

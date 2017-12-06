@@ -1,7 +1,7 @@
 package com.immediateactiongroup.issues.security;
 
 import com.immediateactiongroup.issues.model.User;
-import com.immediateactiongroup.issues.model.repository.UserRepository;
+import com.immediateactiongroup.issues.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,10 +16,10 @@ import org.springframework.stereotype.Service;
 public class JwtUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
+        User user = userService.querySingleUser(username);
         if( user == null){
             throw new UsernameNotFoundException("No user found with username:" + username);
         }
