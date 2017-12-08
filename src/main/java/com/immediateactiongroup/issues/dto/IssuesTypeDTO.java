@@ -12,8 +12,6 @@ public class IssuesTypeDTO {
 
     public IssuesTypeDTO(IssuesType issuesType) {
         this.id = issuesType.getId();
-        this.name = issuesType.getName();
-        this.icon = issuesType.getIcon();
     }
 
     public Long getId() {

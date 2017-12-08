@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
-import java.util.Arrays;
+import java.util.stream.Stream;
 
 /**
  * @author weixueshan
@@ -26,7 +26,7 @@ public class DataBaseInitConfig {
         int roleTotal = roleService.count();
         if(roleTotal == 0){
             UserRoleEnum [] userRoleEnums = UserRoleEnum.values();
-
+            Stream.of(userRoleEnums).forEach(item -> System.out.println(item.getValue()));
         }
     }
 }
