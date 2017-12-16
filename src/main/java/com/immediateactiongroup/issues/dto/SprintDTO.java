@@ -32,12 +32,6 @@ public class SprintDTO {
         this.createTime = sprint.getCreateTime();
         this.lastModifyTime = sprint.getLastModifyTime();
         this.status = sprint.getStatus();
-
-        if(sprint.getIssuesList() != null){
-            for(Issues issues : sprint.getIssuesList()){
-
-            }
-        }
     }
 
     public Long getId() {

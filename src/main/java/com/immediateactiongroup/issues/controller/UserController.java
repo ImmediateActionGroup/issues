@@ -48,7 +48,8 @@ public class UserController {
     public ResponseVO addUser(@RequestBody UserAddDTO userAddDTO) throws BusinessException{
         AddUserDTO addUserDTO = new AddUserDTO(userAddDTO.getUsername(),
                 userAddDTO.getPassword(), UserRoleEnum.index(userAddDTO.getRole()));
-        UserDTO newUser = userService.addUser(addUserDTO);
+        // TODO: 2017/12/8 修改
+        UserDTO newUser = userService.addUser(null);
         return ResponseVO.buildSuccess("添加用户成功", newUser);
     }
 

@@ -10,12 +10,5 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @Date 2017/9/14 下午5:47
  */
 public class ProjectUserRepositoryTest extends IssuesApplicationTests {
-    @Autowired
-    private ProjectUserRepository projectUserRepository;
 
-    @Test
-    public void testFind(){
-        ProjectUser projectUser = projectUserRepository.findByProjectIdAndUserId(1L, 1L);
-        System.out.println(projectUser);
-    }
 }
