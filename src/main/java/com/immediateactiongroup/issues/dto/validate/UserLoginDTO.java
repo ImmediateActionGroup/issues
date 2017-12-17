@@ -1,8 +1,17 @@
 package com.immediateactiongroup.issues.dto.validate;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
  * Created by beishan on 2017/9/2.
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class UserLoginDTO {
 
     private String username;
@@ -24,11 +33,4 @@ public class UserLoginDTO {
         this.password = password;
     }
 
-    @Override
-    public String toString() {
-        return "UserLoginDTO{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
 }

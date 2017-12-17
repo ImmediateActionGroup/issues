@@ -10,23 +10,16 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Project {
+public class UserRole {
     private Long id;
-
-    private String name;
-
-    private String description;
-
-    private String projectKey;
-
-    private Long ownerId;
-
-    private Integer deleteFlag;
-
-    private Long createrId;
 
     private Date lastModifyTime;
 
     private Date createTime;
 
+    private Long userId;
+
+    private Long roleId;
+
+    private Integer deleteFlag;
 }

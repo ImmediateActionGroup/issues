@@ -1,9 +1,7 @@
 package com.immediateactiongroup.issues.service;
 
 import com.immediateactiongroup.issues.commons.enums.UserRoleEnum;
-import com.immediateactiongroup.issues.commons.exception.BusinessException;
-import com.immediateactiongroup.issues.model.Role;
-import com.immediateactiongroup.issues.model.UserRoles;
+import com.immediateactiongroup.issues.model.UserRole;
 
 import java.util.List;
 
@@ -14,16 +12,32 @@ import java.util.List;
 public interface UserRoleService {
     /**
      * 添加用户角色
-     * @param userId
-     * @param roleEnum
-     * @throws BusinessException
+     * @param userId 用户ID
+     * @param roleEnum 要添加的角色
+     * @return
      */
-    void addUserRole(Long userId, UserRoleEnum roleEnum) throws BusinessException;
+    boolean addUserRole(Long userId, UserRoleEnum roleEnum);
 
     /**
      * 查询用户的角色
-     * @param userId
+     * @param userId 用户ID
      * @return
      */
-    List<UserRoles> queryRolesByUserId(Long userId);
+    List<UserRole> queryRolesByUserId(Long userId);
+
+    /**
+     * 移除用户角色
+     * @param userId 用户ID
+     * @param roleEnum 要移除的角色
+     * @return
+     */
+    boolean removeUserRole(Long userId, UserRoleEnum roleEnum);
+
+    /**
+     * 根据用户ID & 角色ID查询
+     * @param userId 用户ID
+     * @param roleId 角色ID
+     * @return
+     */
+    UserRole queryByUserIdAndRoleId(Long userId, Long roleId);
 }

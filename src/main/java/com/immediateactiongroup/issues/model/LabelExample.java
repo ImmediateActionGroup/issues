@@ -305,52 +305,52 @@ public class LabelExample {
             return (Criteria) this;
         }
 
-        public Criteria andSystemFlagEqualTo(Byte value) {
+        public Criteria andSystemFlagEqualTo(Integer value) {
             addCriterion("system_flag =", value, "systemFlag");
             return (Criteria) this;
         }
 
-        public Criteria andSystemFlagNotEqualTo(Byte value) {
+        public Criteria andSystemFlagNotEqualTo(Integer value) {
             addCriterion("system_flag <>", value, "systemFlag");
             return (Criteria) this;
         }
 
-        public Criteria andSystemFlagGreaterThan(Byte value) {
+        public Criteria andSystemFlagGreaterThan(Integer value) {
             addCriterion("system_flag >", value, "systemFlag");
             return (Criteria) this;
         }
 
-        public Criteria andSystemFlagGreaterThanOrEqualTo(Byte value) {
+        public Criteria andSystemFlagGreaterThanOrEqualTo(Integer value) {
             addCriterion("system_flag >=", value, "systemFlag");
             return (Criteria) this;
         }
 
-        public Criteria andSystemFlagLessThan(Byte value) {
+        public Criteria andSystemFlagLessThan(Integer value) {
             addCriterion("system_flag <", value, "systemFlag");
             return (Criteria) this;
         }
 
-        public Criteria andSystemFlagLessThanOrEqualTo(Byte value) {
+        public Criteria andSystemFlagLessThanOrEqualTo(Integer value) {
             addCriterion("system_flag <=", value, "systemFlag");
             return (Criteria) this;
         }
 
-        public Criteria andSystemFlagIn(List<Byte> values) {
+        public Criteria andSystemFlagIn(List<Integer> values) {
             addCriterion("system_flag in", values, "systemFlag");
             return (Criteria) this;
         }
 
-        public Criteria andSystemFlagNotIn(List<Byte> values) {
+        public Criteria andSystemFlagNotIn(List<Integer> values) {
             addCriterion("system_flag not in", values, "systemFlag");
             return (Criteria) this;
         }
 
-        public Criteria andSystemFlagBetween(Byte value1, Byte value2) {
+        public Criteria andSystemFlagBetween(Integer value1, Integer value2) {
             addCriterion("system_flag between", value1, value2, "systemFlag");
             return (Criteria) this;
         }
 
-        public Criteria andSystemFlagNotBetween(Byte value1, Byte value2) {
+        public Criteria andSystemFlagNotBetween(Integer value1, Integer value2) {
             addCriterion("system_flag not between", value1, value2, "systemFlag");
             return (Criteria) this;
         }
@@ -472,6 +472,66 @@ public class LabelExample {
 
         public Criteria andCreateTimeNotBetween(Date value1, Date value2) {
             addCriterion("create_time not between", value1, value2, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteFlagIsNull() {
+            addCriterion("delete_flag is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteFlagIsNotNull() {
+            addCriterion("delete_flag is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteFlagEqualTo(Integer value) {
+            addCriterion("delete_flag =", value, "deleteFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteFlagNotEqualTo(Integer value) {
+            addCriterion("delete_flag <>", value, "deleteFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteFlagGreaterThan(Integer value) {
+            addCriterion("delete_flag >", value, "deleteFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteFlagGreaterThanOrEqualTo(Integer value) {
+            addCriterion("delete_flag >=", value, "deleteFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteFlagLessThan(Integer value) {
+            addCriterion("delete_flag <", value, "deleteFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteFlagLessThanOrEqualTo(Integer value) {
+            addCriterion("delete_flag <=", value, "deleteFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteFlagIn(List<Integer> values) {
+            addCriterion("delete_flag in", values, "deleteFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteFlagNotIn(List<Integer> values) {
+            addCriterion("delete_flag not in", values, "deleteFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteFlagBetween(Integer value1, Integer value2) {
+            addCriterion("delete_flag between", value1, value2, "deleteFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteFlagNotBetween(Integer value1, Integer value2) {
+            addCriterion("delete_flag not between", value1, value2, "deleteFlag");
             return (Criteria) this;
         }
     }

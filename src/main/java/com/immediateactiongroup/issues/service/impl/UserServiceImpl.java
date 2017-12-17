@@ -10,7 +10,8 @@ import com.immediateactiongroup.issues.dto.validate.UserAddDTO;
 import com.immediateactiongroup.issues.dto.validate.UserUpdateDTO;
 import com.immediateactiongroup.issues.model.Role;
 import com.immediateactiongroup.issues.model.User;
-import com.immediateactiongroup.issues.model.UserRoles;
+import com.immediateactiongroup.issues.model.UserExample;
+import com.immediateactiongroup.issues.model.UserRole;
 import com.immediateactiongroup.issues.model.dao.UserMapper;
 import com.immediateactiongroup.issues.service.RoleService;
 import com.immediateactiongroup.issues.service.UserRoleService;
@@ -45,6 +46,38 @@ public class UserServiceImpl extends BaseService implements UserService {
     private Long generateId(){
         return this.generateId(BizTagEnum.USER);
     }
+
+    @Override
+    public boolean changeUserRole(Long userId, UserRoleEnum aimRole, boolean addOrRemove) {
+        log.info("更新用户角色开始，param = { userId = {}, newRole = {}}", userId, aimRole.getName() + ", " + aimRole.getValue());
+        if(Objects.isNull(userId) || Objects.isNull(aimRole)){
+            log.error("更新用户角色出错, 参数错误");
+            return false;
+        }
+        UserDTO userDTO = querySingleUserById(userId);
+        if(Objects.isNull(userDTO)){
+            log.error("更新用户角色出错, 用户不存在");
+            return false;
+        }
+        boolean changeRoleResult = false;
+        if(addOrRemove == true){
+            changeRoleResult = userRoleService.addUserRole(userId, aimRole);
+        }else {
+            changeRoleResult = userRoleService.removeUserRole(userId, aimRole);
+        }
+        return changeRoleResult;
+    }
+
+    @Override
+    public boolean addUserRole(Long userId, UserRoleEnum addRoleEnum) {
+        return changeUserRole(userId, addRoleEnum, true);
+    }
+
+    @Override
+    public boolean remove(Long userId, UserRoleEnum removeRoleEnum) {
+        return changeUserRole(userId, removeRoleEnum, false);
+    }
+
     @Override
     public UserDTO querySingleUserById(Long userId) {
        User user = userMapper.selectByPrimaryKey(userId);
@@ -63,17 +96,24 @@ public class UserServiceImpl extends BaseService implements UserService {
 
     @Override
     public User querySingleUser(String username) {
-        return userMapper.selectByName(username);
+        UserExample userExample = new UserExample();
+        UserExample.Criteria criteria = userExample.createCriteria();
+        criteria.andUsernameEqualTo(username);
+        List<User> users = userMapper.selectByExample(userExample);
+        if(Objects.nonNull(users) && users.size() > 0){
+            return users.get(0);
+        }
+        return null;
     }
 
     @Override
     public List<Role> queryUserRoles(Long userId) {
         List<Role> roles = null;
-        List<UserRoles> userRoles = userRoleService.queryRolesByUserId(userId);
+        List<UserRole> userRoles = userRoleService.queryRolesByUserId(userId);
         if(Objects.nonNull(userRoles)){
             roles = new ArrayList<>();
-            for(UserRoles item : userRoles){
-                roles.add(roleService.queryById(item.getId()));
+            for(UserRole item : userRoles){
+                roles.add(roleService.queryById(item.getRoleId()));
             }
         }
         return roles;
@@ -81,19 +121,19 @@ public class UserServiceImpl extends BaseService implements UserService {
 
     @Override
     public UserDTO querySingleUserByUsername(String username) {
-        // TODO: 2017/11/8 wheather validate the username
-        User user = userMapper.selectByName(username);
-        if(Objects.isNull(user)){
-            return null;
+
+        User user = querySingleUser(username);
+        if(Objects.nonNull(user)) {
+            return UserDTO.builder()
+                    .id(user.getId())
+                    .username(user.getUsername())
+                    .nickname(user.getNickname())
+                    .createTime(user.getCreateTime())
+                    .lastLoginTime(user.getLastLoginTime())
+                    .lastModifyTime(user.getLastModifyTime())
+                    .build();
         }
-        return UserDTO.builder()
-                .id(user.getId())
-                .username(user.getUsername())
-                .nickname(user.getNickname())
-                .createTime(user.getCreateTime())
-                .lastLoginTime(user.getLastLoginTime())
-                .lastModifyTime(user.getLastModifyTime())
-                .build();
+        return null;
     }
 
     @Override
@@ -205,7 +245,10 @@ public class UserServiceImpl extends BaseService implements UserService {
 
     @Override
     public List<UserDTO> queryAll() {
-        List<User> users = userMapper.selectAll();
+        UserExample userExample = new UserExample();
+        UserExample.Criteria criteria = userExample.createCriteria();
+        criteria.andDeleteFlagEqualTo(DeleteFlagEnum.DELETE_FALSE.getValue());
+        List<User> users = userMapper.selectByExample(userExample);
         List<UserDTO> userDTOS = new ArrayList<>();
         for(User user : users){
             userDTOS.add(new UserDTO(user));

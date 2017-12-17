@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.immediateactiongroup.issues.model.dao.IssuesLabelMapper">
-  <resultMap id="BaseResultMap" type="com.immediateactiongroup.issues.model.IssuesLabel">
+<mapper namespace="com.immediateactiongroup.issues.model.dao.UserRoleMapper">
+  <resultMap id="BaseResultMap" type="com.immediateactiongroup.issues.model.UserRole">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="issues_id" jdbcType="BIGINT" property="issuesId" />
-    <result column="label_id" jdbcType="BIGINT" property="labelId" />
     <result column="last_modify_time" jdbcType="TIMESTAMP" property="lastModifyTime" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="role_id" jdbcType="BIGINT" property="roleId" />
+    <result column="delete_flag" jdbcType="TINYINT" property="deleteFlag" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,16 +68,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, issues_id, label_id, last_modify_time, create_time
+    id, last_modify_time, create_time, user_id, role_id, delete_flag
   </sql>
-  <select id="selectByExample" parameterType="com.immediateactiongroup.issues.model.IssuesLabelExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.immediateactiongroup.issues.model.UserRoleExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from issues_label
+    from user_roles
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -87,36 +88,32 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from issues_label
+    from user_roles
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from issues_label
+    delete from user_roles
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.immediateactiongroup.issues.model.IssuesLabelExample">
-    delete from issues_label
+  <delete id="deleteByExample" parameterType="com.immediateactiongroup.issues.model.UserRoleExample">
+    delete from user_roles
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.immediateactiongroup.issues.model.IssuesLabel">
-    insert into issues_label (id, issues_id, label_id, 
-      last_modify_time, create_time)
-    values (#{id,jdbcType=BIGINT}, #{issuesId,jdbcType=BIGINT}, #{labelId,jdbcType=BIGINT}, 
-      #{lastModifyTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP})
+  <insert id="insert" parameterType="com.immediateactiongroup.issues.model.UserRole">
+    insert into user_roles (id, last_modify_time, create_time, 
+      user_id, role_id, delete_flag
+      )
+    values (#{id,jdbcType=BIGINT}, #{lastModifyTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{userId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT}, #{deleteFlag,jdbcType=TINYINT}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.immediateactiongroup.issues.model.IssuesLabel">
-    insert into issues_label
+  <insert id="insertSelective" parameterType="com.immediateactiongroup.issues.model.UserRole">
+    insert into user_roles
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
-      </if>
-      <if test="issuesId != null">
-        issues_id,
-      </if>
-      <if test="labelId != null">
-        label_id,
       </if>
       <if test="lastModifyTime != null">
         last_modify_time,
@@ -124,16 +121,19 @@
       <if test="createTime != null">
         create_time,
       </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="deleteFlag != null">
+        delete_flag,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=BIGINT},
-      </if>
-      <if test="issuesId != null">
-        #{issuesId,jdbcType=BIGINT},
-      </if>
-      <if test="labelId != null">
-        #{labelId,jdbcType=BIGINT},
       </if>
       <if test="lastModifyTime != null">
         #{lastModifyTime,jdbcType=TIMESTAMP},
@@ -141,25 +141,28 @@
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=BIGINT},
+      </if>
+      <if test="deleteFlag != null">
+        #{deleteFlag,jdbcType=TINYINT},
+      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.immediateactiongroup.issues.model.IssuesLabelExample" resultType="java.lang.Long">
-    select count(*) from issues_label
+  <select id="countByExample" parameterType="com.immediateactiongroup.issues.model.UserRoleExample" resultType="java.lang.Long">
+    select count(*) from user_roles
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update issues_label
+    update user_roles
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
-      </if>
-      <if test="record.issuesId != null">
-        issues_id = #{record.issuesId,jdbcType=BIGINT},
-      </if>
-      <if test="record.labelId != null">
-        label_id = #{record.labelId,jdbcType=BIGINT},
       </if>
       <if test="record.lastModifyTime != null">
         last_modify_time = #{record.lastModifyTime,jdbcType=TIMESTAMP},
@@ -167,46 +170,60 @@
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.roleId != null">
+        role_id = #{record.roleId,jdbcType=BIGINT},
+      </if>
+      <if test="record.deleteFlag != null">
+        delete_flag = #{record.deleteFlag,jdbcType=TINYINT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update issues_label
+    update user_roles
     set id = #{record.id,jdbcType=BIGINT},
-      issues_id = #{record.issuesId,jdbcType=BIGINT},
-      label_id = #{record.labelId,jdbcType=BIGINT},
       last_modify_time = #{record.lastModifyTime,jdbcType=TIMESTAMP},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      role_id = #{record.roleId,jdbcType=BIGINT},
+      delete_flag = #{record.deleteFlag,jdbcType=TINYINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.immediateactiongroup.issues.model.IssuesLabel">
-    update issues_label
+  <update id="updateByPrimaryKeySelective" parameterType="com.immediateactiongroup.issues.model.UserRole">
+    update user_roles
     <set>
-      <if test="issuesId != null">
-        issues_id = #{issuesId,jdbcType=BIGINT},
-      </if>
-      <if test="labelId != null">
-        label_id = #{labelId,jdbcType=BIGINT},
-      </if>
       <if test="lastModifyTime != null">
         last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=BIGINT},
+      </if>
+      <if test="deleteFlag != null">
+        delete_flag = #{deleteFlag,jdbcType=TINYINT},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.immediateactiongroup.issues.model.IssuesLabel">
-    update issues_label
-    set issues_id = #{issuesId,jdbcType=BIGINT},
-      label_id = #{labelId,jdbcType=BIGINT},
-      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
+  <update id="updateByPrimaryKey" parameterType="com.immediateactiongroup.issues.model.UserRole">
+    update user_roles
+    set last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=BIGINT},
+      role_id = #{roleId,jdbcType=BIGINT},
+      delete_flag = #{deleteFlag,jdbcType=TINYINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

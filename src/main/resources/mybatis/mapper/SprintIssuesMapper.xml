@@ -7,6 +7,7 @@
     <result column="issues_id" jdbcType="BIGINT" property="issuesId" />
     <result column="last_modify_time" jdbcType="TIMESTAMP" property="lastModifyTime" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="delete_flag" jdbcType="TINYINT" property="deleteFlag" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, sprint_id, issues_id, last_modify_time, create_time
+    id, sprint_id, issues_id, last_modify_time, create_time, delete_flag
   </sql>
   <select id="selectByExample" parameterType="com.immediateactiongroup.issues.model.SprintIssuesExample" resultMap="BaseResultMap">
     select
@@ -102,9 +103,11 @@
   </delete>
   <insert id="insert" parameterType="com.immediateactiongroup.issues.model.SprintIssues">
     insert into sprint_issues (id, sprint_id, issues_id, 
-      last_modify_time, create_time)
+      last_modify_time, create_time, delete_flag
+      )
     values (#{id,jdbcType=BIGINT}, #{sprintId,jdbcType=BIGINT}, #{issuesId,jdbcType=BIGINT}, 
-      #{lastModifyTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP})
+      #{lastModifyTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{deleteFlag,jdbcType=TINYINT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.immediateactiongroup.issues.model.SprintIssues">
     insert into sprint_issues
@@ -124,6 +127,9 @@
       <if test="createTime != null">
         create_time,
       </if>
+      <if test="deleteFlag != null">
+        delete_flag,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -140,6 +146,9 @@
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteFlag != null">
+        #{deleteFlag,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -167,6 +176,9 @@
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.deleteFlag != null">
+        delete_flag = #{record.deleteFlag,jdbcType=TINYINT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -178,7 +190,8 @@
       sprint_id = #{record.sprintId,jdbcType=BIGINT},
       issues_id = #{record.issuesId,jdbcType=BIGINT},
       last_modify_time = #{record.lastModifyTime,jdbcType=TIMESTAMP},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      delete_flag = #{record.deleteFlag,jdbcType=TINYINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -198,6 +211,9 @@
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="deleteFlag != null">
+        delete_flag = #{deleteFlag,jdbcType=TINYINT},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -206,7 +222,8 @@
     set sprint_id = #{sprintId,jdbcType=BIGINT},
       issues_id = #{issuesId,jdbcType=BIGINT},
       last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      delete_flag = #{deleteFlag,jdbcType=TINYINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>
