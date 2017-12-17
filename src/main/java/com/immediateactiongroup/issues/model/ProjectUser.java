@@ -23,5 +23,5 @@ public class ProjectUser {
 
     private Date createTime;
 
-    private Byte deleteFlag;
+    private Integer deleteFlag;
 }

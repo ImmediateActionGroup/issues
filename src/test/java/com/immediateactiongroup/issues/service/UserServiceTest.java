@@ -44,9 +44,9 @@ public class UserServiceTest extends IssuesApplicationTests {
     @Test
     public void testAddUser() throws Exception{
         UserAddDTO userAddDTO = UserAddDTO.builder()
-                .username("admin")
+                .username("normal")
                 .password("123456")
-                .role(UserRoleEnum.ROLE_ADMIN.getValue())
+                .role(UserRoleEnum.ROLE_USER.getValue())
                 .build();
         UserDTO newUser = userService.addUser(userAddDTO);
 
