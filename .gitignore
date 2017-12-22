@@ -1,6 +1,5 @@
 # Created by .ignore support plugin (hsz.mobi)
 .idea
-idea/issues.iml
-.idea/*
 *.iml
+.idea/*
 .gitignore
