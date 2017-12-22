@@ -1,14 +1,12 @@
 package com.immediateactiongroup.issues.service.impl;
 
 import com.immediateactiongroup.issues.commons.enums.BizTagEnum;
+import com.immediateactiongroup.issues.commons.enums.DeleteFlagEnum;
 import com.immediateactiongroup.issues.commons.enums.UserRoleEnum;
-import com.immediateactiongroup.issues.commons.exception.BusinessException;
-import com.immediateactiongroup.issues.commons.exception.ExceptionEnum;
 import com.immediateactiongroup.issues.model.Role;
-import com.immediateactiongroup.issues.model.RoleExample;
-import com.immediateactiongroup.issues.model.UserRoles;
-import com.immediateactiongroup.issues.model.UserRolesExample;
-import com.immediateactiongroup.issues.model.dao.UserRolesMapper;
+import com.immediateactiongroup.issues.model.UserRole;
+import com.immediateactiongroup.issues.model.UserRoleExample;
+import com.immediateactiongroup.issues.model.dao.UserRoleMapper;
 import com.immediateactiongroup.issues.service.IdGenerateService;
 import com.immediateactiongroup.issues.service.RoleService;
 import com.immediateactiongroup.issues.service.UserRoleService;
@@ -31,37 +29,90 @@ public class UserRoleServiceImpl extends BaseService implements UserRoleService 
     @Autowired
     private IdGenerateService idGenerateService;
     @Autowired
-    private UserRolesMapper userRolesMapper;
+    private UserRoleMapper userRoleMapper;
     @Autowired
     private RoleService roleService;
 
     private Long generateId(){
         return idGenerateService.generateId(BizTagEnum.USER_ROLE);
     }
+
+
+
     @Override
-    public void addUserRole(Long userId, UserRoleEnum roleEnum) throws BusinessException {
+    public boolean addUserRole(Long userId, UserRoleEnum roleEnum){
+        log.info("添加用户角色, userId = {}, roleEnum = {}", userId, roleEnum);
         Role role = roleService.queryRoleByName(roleEnum.name());
-        if(Objects.isNull(role)){
-            throw new BusinessException(ExceptionEnum.ROLE_NOT_EXIST);
+        try{
+            if(Objects.isNull(role)){
+                /**
+                 * 如果发现数据库中对应的角色不存在则想数据库中添加相应角色
+                 */
+                roleService.addRole(roleEnum.getName());
+                role = roleService.queryRoleByName(roleEnum.name());
+            }
+            UserRole userRole = queryByUserIdAndRoleId(userId, role.getId());
+            /**
+             * 用户未拥有该角色，则添加角色
+             */
+            if(Objects.isNull(userRole)){
+                Long id = generateId();
+                Date now = DateUtils.getNow();
+                UserRole userRoles = UserRole.builder()
+                        .id(id)
+                        .userId(userId)
+                        .roleId(role.getId())
+                        .createTime(now)
+                        .lastModifyTime(now)
+                        .deleteFlag(DeleteFlagEnum.DELETE_FALSE.getValue())
+                        .build();
+                userRoleMapper.insert(userRoles);
+                log.info("添加用户角色成功");
+                return true;
+            }else {
+                log.error("添加用户角色出错, 用户已拥有该角色, userId = {}, roleEnum = {}", userId, roleEnum);
+            }
+        }catch (Exception e){
+            log.error("添加用户角色出错", e);
         }
-        Long id = generateId();
-        Date now = DateUtils.getNow();
-        UserRoles userRoles = UserRoles.builder()
-                .id(id)
-                .userId(userId)
-                .roleId(role.getId())
-                .createTime(now)
-                .lastModifyTime(now)
-                .build();
-        userRolesMapper.insert(userRoles);
+        return false;
     }
 
     @Override
-    public List<UserRoles> queryRolesByUserId(Long userId) {
+    public List<UserRole> queryRolesByUserId(Long userId) {
 
-        UserRolesExample userRolesExample = new UserRolesExample();
-        UserRolesExample.Criteria criteria = userRolesExample.createCriteria();
+        UserRoleExample userRoleExample = new UserRoleExample();
+        UserRoleExample.Criteria criteria = userRoleExample.createCriteria();
         criteria.andUserIdEqualTo(userId);
-        return userRolesMapper.selectByExample(userRolesExample);
+        criteria.andDeleteFlagEqualTo(DeleteFlagEnum.DELETE_FALSE.getValue());
+        return userRoleMapper.selectByExample(userRoleExample);
+    }
+
+    @Override
+    public boolean removeUserRole(Long userId, UserRoleEnum roleEnum) {
+        Role role = roleService.queryRoleByName(roleEnum.getName());
+        if(Objects.nonNull(role)){
+            UserRole userRole = queryByUserIdAndRoleId(userId, role.getId());
+            if(Objects.nonNull(userRole)){
+                userRoleMapper.deleteByPrimaryKey(userRole.getId());
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public UserRole queryByUserIdAndRoleId(Long userId, Long roleId) {
+        UserRoleExample userRolesExample = new UserRoleExample();
+        UserRoleExample.Criteria criteria = userRolesExample.createCriteria();
+        criteria.andUserIdEqualTo(userId);
+        criteria.andRoleIdEqualTo(roleId);
+        criteria.andDeleteFlagEqualTo(DeleteFlagEnum.DELETE_FALSE.getValue());
+
+        List<UserRole> userRoles = userRoleMapper.selectByExample(userRolesExample);
+        if(Objects.nonNull(userRoles) && userRoles.size() > 0){
+            return userRoles.get(0);
+        }
+        return null;
     }
 }

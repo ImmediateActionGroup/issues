@@ -1,6 +1,7 @@
 package com.immediateactiongroup.issues.service;
 
 import com.immediateactiongroup.issues.IssuesApplicationTests;
+import com.immediateactiongroup.issues.commons.enums.ProjectRoleEnum;
 import com.immediateactiongroup.issues.dto.ProjectAddDTO;
 import com.immediateactiongroup.issues.dto.ProjectDTO;
 import io.jsonwebtoken.lang.Assert;
@@ -69,7 +70,7 @@ public class ProjectServiceTest extends IssuesApplicationTests {
     }
 
     @Test
-    @Transactional
+    //@Transactional
     public void testQuerySingleByKey() throws Exception{
         // step1: generate a unique project name and key
         Long currentMills = System.currentTimeMillis();
@@ -91,14 +92,21 @@ public class ProjectServiceTest extends IssuesApplicationTests {
     }
 
     @Test
-    @Transactional
+    //@Transactional
     public void testAddProject() throws Exception{
         ProjectAddDTO projectAddDTO = new ProjectAddDTO();
-        projectAddDTO.setCreaterId(1L);
-        projectAddDTO.setName("Project11122");
-        projectAddDTO.setKey("CSXM11");
+        projectAddDTO.setCreaterId(10402261318766592L);
+        projectAddDTO.setName("Project1");
+        projectAddDTO.setKey("pro1");
         projectAddDTO.setDescription("meiyou");
 
         projectService.addProject(projectAddDTO);
+    }
+
+    @Test
+    public void testAddSingleMemeberToProject() throws Exception{
+        Long projectId = 10508061177577472L;
+        Long userId = 10513313880608768L;
+        projectService.addSingleMemberToProject(projectId, userId, ProjectRoleEnum.NORMAL);
     }
 }

@@ -20,8 +20,6 @@ public interface RoleMapper {
 
     Role selectByPrimaryKey(Long id);
 
-    Role selectByName(String name);
-
     int updateByExampleSelective(@Param("record") Role record, @Param("example") RoleExample example);
 
     int updateByExample(@Param("record") Role record, @Param("example") RoleExample example);
@@ -29,8 +27,4 @@ public interface RoleMapper {
     int updateByPrimaryKeySelective(Role record);
 
     int updateByPrimaryKey(Role record);
-
-    List<Role> selectByIds(Long ...ids);
-
-    int count();
 }

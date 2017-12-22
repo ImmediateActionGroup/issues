@@ -5,7 +5,9 @@ import com.immediateactiongroup.issues.commons.enums.UserRoleEnum;
 import com.immediateactiongroup.issues.commons.exception.BusinessException;
 import com.immediateactiongroup.issues.dto.AddUserDTO;
 import com.immediateactiongroup.issues.dto.UserDTO;
+import com.immediateactiongroup.issues.dto.validate.UserAddDTO;
 import com.immediateactiongroup.issues.dto.validate.UserUpdateDTO;
+import com.immediateactiongroup.issues.model.RoleExample;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @Author xueshan.wei@mljr.com
  * @Date 2017/9/4 上午11:04
  */
-@Transactional
+//@Transactional
 public class UserServiceTest extends IssuesApplicationTests {
     @Autowired
     private UserService userService;
@@ -41,6 +43,13 @@ public class UserServiceTest extends IssuesApplicationTests {
     }
     @Test
     public void testAddUser() throws Exception{
+        UserAddDTO userAddDTO = UserAddDTO.builder()
+                .username("normal")
+                .password("123456")
+                .role(UserRoleEnum.ROLE_USER.getValue())
+                .build();
+        UserDTO newUser = userService.addUser(userAddDTO);
+
         // step1: create a new user
         /*Long currentMills = System.currentTimeMillis();
         String newUserName  = "newuser_" + currentMills.toString();
@@ -57,6 +66,7 @@ public class UserServiceTest extends IssuesApplicationTests {
 
     @Test(expected = BusinessException.class)
     public void testDeleteUser() throws BusinessException{
+
 
        /* // step1: 新创建一个用户,确保用户名不重复
         Long currentMills = System.currentTimeMillis();
@@ -103,5 +113,11 @@ public class UserServiceTest extends IssuesApplicationTests {
         UserDTO userDTO = userService.updateUserInfo(userUpdateDTO);
 
         System.out.println(userDTO);
+    }
+
+    @Test
+    public void testAddUserRole() throws Exception{
+        Long userId = 10402261318766592L;
+        userService.addUserRole(userId, UserRoleEnum.ROLE_ADMIN);
     }
 }

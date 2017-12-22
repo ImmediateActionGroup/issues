@@ -2,9 +2,10 @@ package com.immediateactiongroup.issues.service;
 
 import com.immediateactiongroup.issues.commons.enums.ProjectRoleEnum;
 import com.immediateactiongroup.issues.commons.exception.BusinessException;
+import com.immediateactiongroup.issues.model.ProjectUser;
 
 /**
- * @Author xueshan.wei@mljr.com
+ * @Author xueshan.wei
  * @Date 2017/9/14 下午5:34
  */
 public interface ProjectUserService {
@@ -45,7 +46,22 @@ public interface ProjectUserService {
      * @param memberId
      * @throws BusinessException
      */
-    void removeMemberFromProject(Long memberId) throws BusinessException;
+    boolean removeMemberFromProject(Long memberId) throws BusinessException;
+
+    /**
+     * 移除项目成员
+     * @param projectId 项目ID
+     * @param userId 用户ID
+     * @return
+     */
+    boolean removeMemberByProjectIdAndUserId(Long projectId, Long userId);
 
     void removeMembersFromProject() throws BusinessException;
+
+    /**
+     * 通过ID查询
+     * @param id ID
+     * @return
+     */
+    ProjectUser queryById(Long id);
 }

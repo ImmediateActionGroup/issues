@@ -1,6 +1,7 @@
 package com.immediateactiongroup.issues.service.impl;
 
 import com.immediateactiongroup.issues.commons.enums.BizTagEnum;
+import com.immediateactiongroup.issues.commons.enums.DeleteFlagEnum;
 import com.immediateactiongroup.issues.commons.enums.ProjectRoleEnum;
 import com.immediateactiongroup.issues.commons.exception.BusinessException;
 import com.immediateactiongroup.issues.commons.exception.ExceptionEnum;
@@ -46,8 +47,33 @@ public class ProjectUserServiceImpl extends BaseService  implements ProjectUserS
     }
 
     @Override
-    public void removeMemberFromProject(Long memberId) throws BusinessException {
+    public boolean removeMemberFromProject(Long memberId) throws BusinessException {
+        log.info("移除项目成员开始，memberId = {}", memberId);
+        ProjectUser projectUser = queryById(memberId);
+        if(Objects.nonNull(projectUser)){
+            projectUser.setDeleteFlag(DeleteFlagEnum.DELETE_TRUE.getValue());
+            projectUserMapper.updateByPrimaryKey(projectUser);
+            return true;
+        }
+        return false;
+    }
 
+    @Override
+    public boolean removeMemberByProjectIdAndUserId(Long projectId, Long userId) {
+        log.info("移除项目成员开始, projectId = {}, userId = {}", projectId, userId);
+        try{
+            ProjectUser projectUser = queryByProjectIdAndUserId(projectId, userId);
+            if(Objects.nonNull(projectUser)){
+                projectUser.setDeleteFlag(DeleteFlagEnum.DELETE_TRUE.getValue());
+                projectUserMapper.updateByPrimaryKey(projectUser);
+                log.info("移除项目成员成功, projectId = {}, userId = {}", projectId, userId);
+                return true;
+            }
+        }catch (Exception e){
+            log.error("移除项目成员失败, ", e);
+        }
+        log.error("移除项目成员失败");
+        return false;
     }
 
     @Override
@@ -58,7 +84,8 @@ public class ProjectUserServiceImpl extends BaseService  implements ProjectUserS
         ProjectUserExample projectUserExample = new ProjectUserExample();
         ProjectUserExample.Criteria criteria = projectUserExample.createCriteria();
         criteria.andProjectIdEqualTo(projectId)
-                .andUserIdEqualTo(userId);
+                .andUserIdEqualTo(userId)
+                .andDeleteFlagEqualTo(DeleteFlagEnum.DELETE_FALSE.getValue());
         List<ProjectUser> projectUsers = projectUserMapper.selectByExample(projectUserExample);
         if(projectUsers != null && projectUsers.size() > 0){
             return projectUsers.get(0);
@@ -67,7 +94,7 @@ public class ProjectUserServiceImpl extends BaseService  implements ProjectUserS
     }
     @Override
     public void addMemberToProject(Long projectId, Long userId, ProjectRoleEnum role) throws BusinessException {
-
+        log.info("添加项目成员开始, projectId = {}, userId = {}, role = {}", projectId, userId, role);
         ProjectUser projectUser = queryByProjectIdAndUserId(projectId, userId);
         if(Objects.nonNull(projectUser)){
             throw new BusinessException(ExceptionEnum.PU_ADDMEMBER_EXIST);
@@ -81,7 +108,22 @@ public class ProjectUserServiceImpl extends BaseService  implements ProjectUserS
                 .role(role.getValue())
                 .lastModifyTime(now)
                 .createTime(now)
+                .deleteFlag(DeleteFlagEnum.DELETE_FALSE.getValue())
                 .build();
         projectUserMapper.insert(projectUser);
+        log.info("添加项目成员成功, projectUser = {}", projectUser);
+    }
+
+    @Override
+    public ProjectUser queryById(Long id) {
+        ProjectUserExample projectUserExample = new ProjectUserExample();
+        ProjectUserExample.Criteria criteria = projectUserExample.createCriteria();
+        criteria.andDeleteFlagEqualTo(DeleteFlagEnum.DELETE_FALSE.getValue());
+        criteria.andIdEqualTo(id);
+        List<ProjectUser> projectUsers = projectUserMapper.selectByExample(projectUserExample);
+        if(Objects.nonNull(projectUsers) && projectUsers.size() > 0){
+            return projectUsers.get(0);
+        }
+        return null;
     }
 }

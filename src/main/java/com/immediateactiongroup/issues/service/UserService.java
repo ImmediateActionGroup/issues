@@ -1,7 +1,7 @@
 package com.immediateactiongroup.issues.service;
 
+import com.immediateactiongroup.issues.commons.enums.UserRoleEnum;
 import com.immediateactiongroup.issues.commons.exception.BusinessException;
-import com.immediateactiongroup.issues.dto.AddUserDTO;
 import com.immediateactiongroup.issues.dto.UserDTO;
 import com.immediateactiongroup.issues.dto.validate.UserAddDTO;
 import com.immediateactiongroup.issues.dto.validate.UserUpdateDTO;
@@ -16,6 +16,30 @@ import java.util.List;
  * 用户相关操作类
  */
 public interface UserService {
+    /**
+     * 更改用户角色
+     * @param userId 用户id
+     * @param aimRole 角色枚举
+     * @param addOrRemove 增加(true)或者是删除(false)角色
+     * @return 更新是否成功 true 成功 | false 失败
+     */
+    boolean changeUserRole(Long userId, UserRoleEnum aimRole, boolean addOrRemove);
+
+    /**
+     * 添加用户角色
+     * @param userId 用户ID
+     * @param addRoleEnum 要添加的用户角色
+     * @return 更新是否成功 true 成功 | false 失败
+     */
+    boolean addUserRole(Long userId, UserRoleEnum addRoleEnum);
+
+    /**
+     * 移除用户角色
+     * @param userId 用户ID
+     * @param removeRoleEnum 要删除的用户角色
+     * @return 更新是否成功 true 成功 | false 失败
+     */
+    boolean remove(Long userId, UserRoleEnum removeRoleEnum);
     /**
      * query a single user by id
      * if the user is not exist return a null
@@ -32,8 +56,18 @@ public interface UserService {
      */
     UserDTO querySingleUserByUsername(String username);
 
+    /**
+     * 查询用户拥有的角色
+     * @param userId
+     * @return
+     */
     List<Role> queryUserRoles(Long userId);
 
+    /**
+     * 根据用户名查询用户
+     * @param username 用户名
+     * @return
+     */
     User querySingleUser(String username);
 
     /**

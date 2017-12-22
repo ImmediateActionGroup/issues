@@ -37,6 +37,15 @@ public interface ProjectService {
      * @throws BusinessException
      */
     ProjectDTO querySingleByKey(String key) throws BusinessException;
+
+    /**
+     * 根据项目名称&key查询项目
+     * @param name 项目名称
+     * @param key 项目key
+     * @return
+     * @throws BusinessException
+     */
+    ProjectDTO querySingleByNameAndKey(String name, String key) throws BusinessException;
     /**
      * 添加project
      * @param projectAddDTO
