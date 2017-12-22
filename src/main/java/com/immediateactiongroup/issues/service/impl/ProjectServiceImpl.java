@@ -41,6 +41,28 @@ public class ProjectServiceImpl extends BaseService implements ProjectService {
     private Long generateId(){
         return generateId(BizTagEnum.PROJECT);
     }
+
+    @Override
+    public boolean queryIsExistByKey(String key) throws BusinessException {
+        ProjectDTO projectDTO = querySingleByKey(key);
+        if(Objects.nonNull(projectDTO)){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean queryIsExistByName(String name) throws BusinessException {
+        if(Objects.isNull(name)){
+            throw new BusinessException(ExceptionEnum.PARAMETER_ERROR);
+        }
+        ProjectDTO projectDTO = querySingleByName(name);
+        if(Objects.nonNull(projectDTO)){
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public ProjectDTO querySingleById(Long id) throws BusinessException {
         Project project = projectMapper.selectByPrimaryKey(id);
@@ -56,6 +78,10 @@ public class ProjectServiceImpl extends BaseService implements ProjectService {
                 .createTime(project.getCreateTime())
                 .lastModifyTime(project.getLastModifyTime())
                 .build();
+    }
+
+    private Project queryById(Long id){
+        return projectMapper.selectByPrimaryKey(id);
     }
 
     @Override
@@ -171,7 +197,13 @@ public class ProjectServiceImpl extends BaseService implements ProjectService {
 
     @Override
     public void deleteProject(Long projectId) throws BusinessException {
-        // TODO: 2017/9/14 待实现
+        Project project = queryById(projectId);
+        if(Objects.isNull(project)){
+            throw new BusinessException(ExceptionEnum.PROJECT_IS_NOST_EXIST);
+        }
+        project.setDeleteFlag(DeleteFlagEnum.DELETE_TRUE.getValue());
+        project.setLastModifyTime(new Date());
+        projectMapper.updateByPrimaryKey(project);
     }
 
     @Override

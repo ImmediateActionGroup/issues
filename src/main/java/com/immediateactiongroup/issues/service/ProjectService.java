@@ -12,6 +12,21 @@ import com.immediateactiongroup.issues.dto.ProjectUpdateDTO;
  */
 public interface ProjectService {
     /**
+     * 根据key 查询是否存在
+     * @param key 项目key
+     * @return
+     * @throws BusinessException
+     */
+    boolean queryIsExistByKey(String key) throws BusinessException;
+
+    /**
+     * 根据name 查询是否存在
+     * @param name 项目名称
+     * @return
+     * @throws BusinessException
+     */
+    boolean queryIsExistByName(String name) throws BusinessException;
+    /**
      * query a single project by id
      * if the project is not exist return null
      * @param id

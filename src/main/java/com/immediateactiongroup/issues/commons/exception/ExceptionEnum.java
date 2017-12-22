@@ -5,6 +5,7 @@ package com.immediateactiongroup.issues.commons.exception;
  * @Date 2017/9/3 上午10:20
  */
 public enum ExceptionEnum {
+    PARAMETER_ERROR("10000001", "参数错误"),
     /**
      * role
      */
