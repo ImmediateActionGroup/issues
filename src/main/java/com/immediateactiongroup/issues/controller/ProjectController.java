@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @Author xueshan.wei@mljr.com
+ * @Author xueshan.wei
  * @Date 2017/11/9 下午11:48
  */
 @RestController
