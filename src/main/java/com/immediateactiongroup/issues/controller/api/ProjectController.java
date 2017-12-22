@@ -1,4 +1,4 @@
-package com.immediateactiongroup.issues.controller;
+package com.immediateactiongroup.issues.controller.api;
 
 import com.immediateactiongroup.issues.commons.exception.BusinessException;
 import com.immediateactiongroup.issues.dto.ProjectAddDTO;
@@ -17,7 +17,7 @@ import java.util.Map;
  * @Author xueshan.wei
  * @Date 2017/11/9 下午11:48
  */
-@RestController
+@RestController("apiProjectController")
 @RequestMapping("/api")
 @Slf4j
 public class ProjectController {

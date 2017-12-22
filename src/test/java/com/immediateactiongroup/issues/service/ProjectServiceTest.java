@@ -20,6 +20,7 @@ public class ProjectServiceTest extends IssuesApplicationTests {
 
 
     @Test
+    @Transactional
     public void testQuerySingleById() throws Exception{
         // step1: generate a unique project name and key
         Long currentMills = System.currentTimeMillis();
@@ -30,22 +31,22 @@ public class ProjectServiceTest extends IssuesApplicationTests {
                 .name(uniqueProjectName)
                 .key(uniquePorjectKey)
                 .description("...")
-                .createrId(1L)
+                .createrId(10402261318766592L)
                 .build();
 
-        // step2: save the user
+        // step2: save the project
 
         ProjectDTO newProject = projectService.addProject(projectAddDTO);
 
         // step3: query the user
-        ProjectDTO existUser = projectService.querySingleById(newProject.getId());
-        Assert.notNull(existUser);
+        ProjectDTO existProject = projectService.querySingleById(newProject.getId());
+        Assert.notNull(existProject);
 
         // step4: generate a not exist user by a special id
         // 一个大的数
         Long userId = Long.MAX_VALUE;
-        ProjectDTO notExistUser = projectService.querySingleById(userId);
-        Assert.isNull(notExistUser);
+        ProjectDTO notExistProject = projectService.querySingleById(userId);
+        Assert.isNull(notExistProject);
     }
 
     @Test

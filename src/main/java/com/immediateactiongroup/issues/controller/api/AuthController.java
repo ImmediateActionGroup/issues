@@ -1,4 +1,4 @@
-package com.immediateactiongroup.issues.controller;
+package com.immediateactiongroup.issues.controller.api;
 
 import com.immediateactiongroup.issues.dto.UserDTO;
 import com.immediateactiongroup.issues.dto.validate.UserAddDTO;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * Created by beishan on 2017/9/2.
  */
-@RestController
+@RestController("apiAuthController")
 @RequestMapping("/api/auth")
 @Slf4j
 public class AuthController {

@@ -1,4 +1,4 @@
-package com.immediateactiongroup.issues.controller;
+package com.immediateactiongroup.issues.controller.api;
 
 import com.immediateactiongroup.issues.commons.enums.UserRoleEnum;
 import com.immediateactiongroup.issues.commons.exception.BusinessException;
@@ -19,7 +19,7 @@ import java.util.List;
  * @Author xueshan.wei@mljr.com
  * @Date 2017/8/23 下午6:07
  */
-@RestController
+@RestController("apiUserController")
 @RequestMapping("/api")
 public class UserController {
 

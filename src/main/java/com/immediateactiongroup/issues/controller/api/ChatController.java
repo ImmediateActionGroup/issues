@@ -1,4 +1,4 @@
-package com.immediateactiongroup.issues.controller;
+package com.immediateactiongroup.issues.controller.api;
 
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
