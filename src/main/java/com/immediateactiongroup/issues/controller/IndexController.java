@@ -13,4 +13,8 @@ public class IndexController {
     public String index(Model model){
         return "sprint";
     }
+
+    public static void main(String[] args) {
+        
+    }
 }

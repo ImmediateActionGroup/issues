@@ -14,7 +14,7 @@ import com.immediateactiongroup.issues.model.ProjectExample;
 import com.immediateactiongroup.issues.model.dao.ProjectMapper;
 import com.immediateactiongroup.issues.service.ProjectService;
 import com.immediateactiongroup.issues.service.ProjectUserService;
-import com.immediateactiongroup.issues.service.UserService;
+import com.immediateactiongroup.issues.service.UserAdminService;
 import com.immediateactiongroup.issues.utils.DateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ public class ProjectServiceImpl extends BaseService implements ProjectService {
     @Autowired
     private ProjectUserService projectUserService;
     @Autowired
-    private UserService userService;
+    private UserAdminService userAdminService;
     @Autowired
     private ProjectMapper projectMapper;
     private Long generateId(){
@@ -164,7 +164,7 @@ public class ProjectServiceImpl extends BaseService implements ProjectService {
     @Override
     public ProjectDTO addProject(ProjectAddDTO projectAddDTO) throws BusinessException {
         log.info("创建项目开始, param = {}", projectAddDTO);
-        UserDTO user = userService.querySingleUserById(projectAddDTO.getCreaterId());
+        UserDTO user = userAdminService.querySingleUserById(projectAddDTO.getCreaterId());
         if(user == null){
             log.error("[添加项目] 项目创建者id:{}不存在", projectAddDTO.getCreaterId());
             throw new BusinessException(ExceptionEnum.USER_NOT_EXIST);
@@ -216,7 +216,7 @@ public class ProjectServiceImpl extends BaseService implements ProjectService {
             throw new BusinessException(ExceptionEnum.PROJECT_IS_NOST_EXIST);
         }
         // step2: check the user is exist
-        UserDTO user = userService.querySingleUserById(userId);
+        UserDTO user = userAdminService.querySingleUserById(userId);
         if(Objects.isNull(user)){
             log.error("[添加项目成员] 用户{}不存在", userId);
             throw new BusinessException(ExceptionEnum.USER_NOT_EXIST);
@@ -246,7 +246,7 @@ public class ProjectServiceImpl extends BaseService implements ProjectService {
 
     private void addMemberToProject(Long projectId, Long userId, ProjectRoleEnum role) throws BusinessException{
         // step1: check the user is exist
-        UserDTO user = userService.querySingleUserById(userId);
+        UserDTO user = userAdminService.querySingleUserById(userId);
         if(Objects.isNull(user)){
             throw new BusinessException(ExceptionEnum.USER_NOT_EXIST);
         }

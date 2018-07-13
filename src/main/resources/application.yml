@@ -16,7 +16,7 @@ spring:
     ansi:
       enabled: always
   application:
-    name=issues
+    name: issues
   thymeleaf:
     cache: false
   jackson:

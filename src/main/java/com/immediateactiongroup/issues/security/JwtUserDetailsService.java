@@ -3,7 +3,7 @@ package com.immediateactiongroup.issues.security;
 import com.immediateactiongroup.issues.model.Role;
 import com.immediateactiongroup.issues.model.User;
 import com.immediateactiongroup.issues.service.UserRoleService;
-import com.immediateactiongroup.issues.service.UserService;
+import com.immediateactiongroup.issues.service.UserAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,17 +23,17 @@ import java.util.List;
 public class JwtUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private UserService userService;
+    private UserAdminService userAdminService;
     @Autowired
     private UserRoleService userRoleService;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userService.querySingleUser(username);
+        User user = userAdminService.querySingleUser(username);
         if( user == null){
             throw new UsernameNotFoundException("No user found with username:" + username);
         }
         List<GrantedAuthority> auths = new ArrayList<>();
-        List<Role> roles = userService.queryUserRoles(user.getId());
+        List<Role> roles = userAdminService.queryUserRoles(user.getId());
         for(Role role : roles){
             auths.add(new SimpleGrantedAuthority(role.getName()));
         }

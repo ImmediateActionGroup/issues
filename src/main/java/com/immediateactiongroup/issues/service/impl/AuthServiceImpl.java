@@ -8,7 +8,7 @@ import com.immediateactiongroup.issues.security.JwtUser;
 import com.immediateactiongroup.issues.service.AuthService;
 import com.immediateactiongroup.issues.service.IdGenerateService;
 import com.immediateactiongroup.issues.service.RoleService;
-import com.immediateactiongroup.issues.service.UserService;
+import com.immediateactiongroup.issues.service.UserAdminService;
 import com.immediateactiongroup.issues.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
-    private UserService userService;
+    private UserAdminService userAdminService;
     @Autowired
     private RoleService roleService;
     @Autowired
@@ -51,7 +51,7 @@ public class AuthServiceImpl implements AuthService {
     public UserDTO register(UserAddDTO userAddDTO){
         UserDTO userDTO = null;
         try {
-            userDTO = userService.addUser(userAddDTO);
+            userDTO = userAdminService.addUser(userAddDTO);
         } catch (BusinessException e) {
             log.error("register 用户出错, {}", userAddDTO.toString());
             userDTO = null;

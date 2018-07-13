@@ -12,20 +12,20 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResponseVO {
+public class ResponseVO<T> {
     private static final String successCode = "00000000";
     private static final String successMessage = "success";
     private String code;
     private String message;
-    private Object data;
+    private T data;
 
-    public static ResponseVO build(String code, String message, Object data){
+    public static <T> ResponseVO build(String code, String message, T data){
         return new ResponseVO(code, message, data);
     }
-    public static ResponseVO buildSuccess(String message, Object data){
+    public static <T> ResponseVO buildSuccess(String message, T data){
         return new ResponseVO(successCode, message, data);
     }
-    public static ResponseVO buildSuccess(Object data){
+    public static <T> ResponseVO buildSuccess(T data){
         return new ResponseVO(successCode, successMessage, data);
     }
 
@@ -52,11 +52,11 @@ public class ResponseVO {
         this.message = message;
     }
 
-    public Object getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(T data) {
         this.data = data;
     }
 }
